@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml)
 
+![The Bespoke demo landing page in its dark Noir theme: a large Fraunces serif headline reading "Interfaces, composed with intent" with the word intent in an iridescent gradient, over a near-black canvas.](.github/assets/hero.png)
+
 A small, accessible React component library built to show design-system craft:
 hand-written SCSS with BEM, one source of truth for design tokens, and
 accessibility wired in from the first line rather than bolted on at the end.
