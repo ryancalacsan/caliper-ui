@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml/badge.svg)](https://github.com/ryancalacsan/bespoke-css/actions/workflows/ci.yml)
 
+**[Live demo](https://bespoke-css.vercel.app)** · **[Component docs (Storybook)](https://bespoke-css.vercel.app/storybook/)**
+
 ![The Bespoke demo landing page in its dark Noir theme: a large Fraunces serif headline reading "Interfaces, composed with intent" with the word intent in an iridescent gradient, over a near-black canvas.](.github/assets/hero.png)
 
 A small, accessible React component library built to show design-system craft:
@@ -140,6 +142,17 @@ the visual regression in the pinned Playwright container so the screenshots
 compare against matching baselines. The committed baselines include a Linux set
 generated in that same image.
 
+## Deployment
+
+The demo and the docs ship from a single Vercel project connected to this repo,
+so every push to `main` deploys production and every pull request gets a preview
+URL. One build produces both: the `vercel-build` script builds the demo, then
+builds Storybook into `dist/storybook`, so the landing page serves at the root
+and the component docs at `/storybook`.
+
+- Demo: <https://bespoke-css.vercel.app>
+- Storybook: <https://bespoke-css.vercel.app/storybook/>
+
 ## Project structure
 
 ```
@@ -151,24 +164,30 @@ src/
     _radii.scss        border radii
     _elevation.scss    z-index scale + shadows
     _motion.scss       durations + easings
+    _breakpoints.scss  named viewport widths
     _index.scss        forwards every map
   styles/            the token-to-CSS bridge and shared helpers
     _root.scss         emits custom properties from the maps
     _functions.scss    typed token accessors for Sass
-    _mixins.scss       focus-ring, visually-hidden, reduced-motion
+    _mixins.scss       focus-ring, field-focus, media queries, reduced-motion
     _reset.scss        minimal modern reset
+    fonts.ts           self-hosted variable fonts (Fontsource)
     global.scss        the entry point that ties it together
   components/
-    Button/            variants, sizes, loading, disabled
+    Button/            variants, sizes, shapes (pill), loading
     TextField/         label, help text, error state, ARIA wiring
     Modal/             focus trap, escape, focus restore, scroll lock
     Checkbox/          checked + indeterminate via pseudo-classes
     RadioGroup/        fieldset/legend group, per-option help
     Select/            ARIA listbox: activedescendant, type-ahead
-    Tabs/              roving tabindex, arrow keys, automatic activation
+    Tabs/              roving tabindex, arrow keys, sliding indicator
     Tooltip/           hover + focus, escape to dismiss, describedby
+  foundations/       live Storybook specimens (color, type)
   docs/
+    Introduction.mdx   the branded Storybook cover page
     Tokens.mdx         the token reference, rendered in Storybook
+scripts/
+  check-contrast.mjs   WCAG AA check for every color pairing
 tests/
   visual.spec.ts       Playwright visual regression, light and dark
   __screenshots__/     committed baselines
@@ -204,7 +223,7 @@ npm run dev           # the demo page at http://localhost:5173
 
 ## What comes next
 
-The component set covers the common form and disclosure patterns, a dark theme
-proves the token model holds, the keyboard flows and visuals are under test, and
-CI runs all of it on every push. From here the system grows component by
-component as real product needs surface, on the same foundation.
+The foundation is in place: eight components, a token layer proven by a second
+(dark) theme, the keyboard flows and visuals under test, CI on every push, and a
+live deployment. From here the system grows component by component as real
+product needs surface, each one on the same foundation and held to the same bar.
