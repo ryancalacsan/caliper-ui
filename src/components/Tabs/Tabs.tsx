@@ -1,4 +1,4 @@
-import { useId, useRef, useState } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import './Tabs.scss';
 
@@ -41,6 +41,39 @@ export function Tabs({
   const selectedId = activeId ?? internalId;
 
   const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map());
+  const listRef = useRef<HTMLDivElement>(null);
+
+  // The sliding indicator tracks the selected tab's position and width. We
+  // measure the DOM rather than guess, so it stays correct as labels, fonts, or
+  // the container width change.
+  const [indicator, setIndicator] = useState<{
+    left: number;
+    width: number;
+  } | null>(null);
+
+  function measureIndicator() {
+    const node = tabRefs.current.get(selectedId);
+    if (node) {
+      setIndicator({ left: node.offsetLeft, width: node.offsetWidth });
+    }
+  }
+
+  // Re-measure synchronously after layout when the selection changes.
+  useLayoutEffect(() => {
+    measureIndicator();
+    // measureIndicator reads refs; selectedId and the tab set are the inputs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId, tabs.length]);
+
+  // And whenever the tab list reflows (resize, font load, content change).
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => measureIndicator());
+    observer.observe(list);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId]);
 
   const tabId = (id: string) => `${baseId}-tab-${id}`;
   const panelId = (id: string) => `${baseId}-panel-${id}`;
@@ -90,6 +123,7 @@ export function Tabs({
   return (
     <div className="tabs">
       <div
+        ref={listRef}
         role="tablist"
         aria-label={label}
         className="tabs__list"
@@ -118,6 +152,17 @@ export function Tabs({
             </button>
           );
         })}
+
+        {indicator && (
+          <span
+            className="tabs__indicator"
+            aria-hidden="true"
+            style={{
+              transform: `translateX(${indicator.left}px)`,
+              width: `${indicator.width}px`,
+            }}
+          />
+        )}
       </div>
 
       {tabs.map((tab) => (

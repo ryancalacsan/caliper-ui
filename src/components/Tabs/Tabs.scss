@@ -15,9 +15,26 @@
   font-family: var(--font-sans);
 
   &__list {
+    position: relative;
     display: flex;
     gap: var(--space-2xs);
     border-bottom: 1px solid var(--color-border);
+  }
+
+  // A single bar that slides under the selected tab. Its position and width are
+  // measured in JS and applied inline; this only carries the look and the
+  // motion. The slide is wrapped in motion-safe, so reduced-motion users get an
+  // instant move rather than an animation.
+  &__indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    pointer-events: none;
+
+    @include mix.transition(transform, width);
   }
 
   &__tab {
@@ -27,7 +44,7 @@
     background-color: transparent;
     border: 0;
 
-    // Reserve space for the active underline so text does not shift.
+    // Reserve the 2px the sliding indicator occupies so nothing shifts.
     border-bottom: 2px solid transparent;
     margin-bottom: -1px;
 
@@ -38,7 +55,7 @@
     cursor: pointer;
     white-space: nowrap;
 
-    @include mix.transition(color, border-color, background-color);
+    @include mix.transition(color, background-color);
 
     // Inset the focus ring so it reads against the bottom border.
     &:focus-visible {
@@ -52,9 +69,10 @@
       background-color: var(--color-bg);
     }
 
+    // The sliding indicator now carries the underline; the selected tab keeps
+    // the accent color as a second, non-position cue.
     &[aria-selected='true'] {
       color: var(--color-accent-text);
-      border-bottom-color: var(--color-primary);
     }
 
     &:disabled {
