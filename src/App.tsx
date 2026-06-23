@@ -14,152 +14,187 @@ import './App.scss';
 type Theme = 'light' | 'dark';
 
 /**
- * A small demo surface. The real documentation lives in Storybook; this page is
- * a quick visual sanity check that the components compose on the shared token
- * foundation, in both themes.
+ * The demo surface, dressed as a small editorial landing page. It leads with the
+ * dark "noir" theme and shows the components composing on the shared tokens. The
+ * real per-component docs live in Storybook.
  */
 export function App() {
   const [modalOpen, setModalOpen] = useState(false);
-  const [theme, setTheme] = useState<Theme>('light');
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
   return (
-    <main className="demo">
-      <header className="demo__intro">
-        <div className="demo__bar">
-          <p className="demo__eyebrow">Bespoke CSS</p>
-          <Button
-            variant="secondary"
-            size="sm"
-            aria-pressed={theme === 'dark'}
-            onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-          >
-            {theme === 'light' ? 'Dark theme' : 'Light theme'}
-          </Button>
-        </div>
-        <h1 className="demo__title">An accessible component foundation</h1>
-        <p className="demo__lead">
-          Eight components built on a single token source, hand-written SCSS
-          with BEM, and accessibility wired in from the start. The theme toggle
-          repoints the semantic color roles. No component code changes. Full
-          docs live in Storybook.
-        </p>
+    <div className="lp">
+      <div className="lp__glow" aria-hidden="true" />
+
+      <header className="lp__bar">
+        <a className="lp__wordmark" href="#top">
+          Bespoke <span className="lp__wordmark-tag">/ design system</span>
+        </a>
+        <button
+          type="button"
+          className="lp__theme"
+          aria-pressed={theme === 'dark'}
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
+          {theme === 'light' ? 'Noir' : 'Daylight'}
+        </button>
       </header>
 
-      <section className="demo__section" aria-labelledby="buttons-heading">
-        <h2 id="buttons-heading" className="demo__heading">
-          Buttons
-        </h2>
-        <div className="demo__row">
-          <Button variant="primary">Primary</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="danger">Danger</Button>
-          <Button isLoading loadingLabel="Saving">
-            Loading
-          </Button>
-          <Tooltip content="Saves without leaving the page">
-            <Button variant="ghost">Hover or focus me</Button>
-          </Tooltip>
-        </div>
-      </section>
-
-      <section className="demo__section" aria-labelledby="fields-heading">
-        <h2 id="fields-heading" className="demo__heading">
-          Form controls
-        </h2>
-        <div className="demo__fields">
-          <TextField
-            label="Email address"
-            type="email"
-            placeholder="you@example.com"
-            helpText="We only use this to send build notifications."
-          />
-          <TextField
-            label="Password"
-            type="password"
-            error="Enter at least 12 characters."
-            required
-          />
-          <Select
-            label="Country"
-            placeholder="Select a country"
-            options={[
-              { label: 'Australia', value: 'au' },
-              { label: 'Canada', value: 'ca' },
-              { label: 'Germany', value: 'de' },
-              { label: 'Japan', value: 'jp' },
-            ]}
-          />
-          <RadioGroup
-            legend="Notifications"
-            defaultValue="daily"
-            options={[
-              { label: 'Real time', value: 'realtime' },
-              { label: 'Daily digest', value: 'daily' },
-              { label: 'Weekly summary', value: 'weekly' },
-            ]}
-          />
-          <div className="demo__stack">
-            <Checkbox label="Email me about product updates" defaultChecked />
-            <Checkbox label="Make profile public" />
-          </div>
-        </div>
-      </section>
-
-      <section className="demo__section" aria-labelledby="tabs-heading">
-        <h2 id="tabs-heading" className="demo__heading">
-          Tabs
-        </h2>
-        <Tabs
-          label="Account settings"
-          tabs={[
-            {
-              id: 'profile',
-              label: 'Profile',
-              content: 'Your name, photo, and public details live here.',
-            },
-            {
-              id: 'billing',
-              label: 'Billing',
-              content: 'Manage your plan, payment method, and invoices.',
-            },
-            {
-              id: 'notifications',
-              label: 'Notifications',
-              content: 'Choose what we email you about and how often.',
-            },
-          ]}
-        />
-      </section>
-
-      <section className="demo__section" aria-labelledby="modal-heading">
-        <h2 id="modal-heading" className="demo__heading">
-          Modal
-        </h2>
-        <Button onClick={() => setModalOpen(true)}>Open dialog</Button>
-        <Modal
-          isOpen={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title="Publish release"
-          footer={
-            <>
-              <Button variant="secondary" onClick={() => setModalOpen(false)}>
-                Cancel
-              </Button>
-              <Button onClick={() => setModalOpen(false)}>Publish</Button>
-            </>
-          }
-        >
-          <p>
-            Focus is trapped in here, Escape closes it, the page behind cannot
-            scroll, and focus returns to the button when it closes.
+      <main className="lp__main" id="top">
+        <section className="lp__hero">
+          <p className="lp__eyebrow">Accessible component system</p>
+          <h1 className="lp__title">
+            Interfaces, composed
+            <br />
+            with <em>intent.</em>
+          </h1>
+          <p className="lp__lead">
+            A small React component library built on hand-written SCSS and a
+            single source of design tokens. Eight components, two themes,
+            accessibility as a first principle, not a finishing pass.
           </p>
-        </Modal>
-      </section>
-    </main>
+          <div className="lp__actions">
+            <Button onClick={() => setModalOpen(true)}>
+              Explore the system
+            </Button>
+            <Tooltip content="Opens the documented component set">
+              <Button variant="ghost">Storybook</Button>
+            </Tooltip>
+          </div>
+          <ul className="lp__meta">
+            <li>
+              <span className="lp__meta-num">8</span> components
+            </li>
+            <li>
+              <span className="lp__meta-num">2</span> themes
+            </li>
+            <li>
+              <span className="lp__meta-num">AA</span> contrast
+            </li>
+          </ul>
+        </section>
+
+        <section className="lp__section" aria-labelledby="buttons-heading">
+          <p className="lp__overline">01 / Actions</p>
+          <h2 id="buttons-heading" className="lp__heading">
+            Buttons
+          </h2>
+          <div className="lp__row">
+            <Button variant="primary">Primary</Button>
+            <Button variant="secondary">Secondary</Button>
+            <Button variant="ghost">Ghost</Button>
+            <Button variant="danger">Danger</Button>
+            <Button isLoading loadingLabel="Saving">
+              Loading
+            </Button>
+          </div>
+        </section>
+
+        <section className="lp__section" aria-labelledby="fields-heading">
+          <p className="lp__overline">02 / Input</p>
+          <h2 id="fields-heading" className="lp__heading">
+            Form controls
+          </h2>
+          <div className="lp__fields">
+            <TextField
+              label="Email address"
+              type="email"
+              placeholder="you@example.com"
+              helpText="We only use this to send build notifications."
+            />
+            <TextField
+              label="Password"
+              type="password"
+              error="Enter at least 12 characters."
+              required
+            />
+            <Select
+              label="Country"
+              placeholder="Select a country"
+              options={[
+                { label: 'Australia', value: 'au' },
+                { label: 'Canada', value: 'ca' },
+                { label: 'Germany', value: 'de' },
+                { label: 'Japan', value: 'jp' },
+              ]}
+            />
+            <RadioGroup
+              legend="Notifications"
+              defaultValue="daily"
+              options={[
+                { label: 'Real time', value: 'realtime' },
+                { label: 'Daily digest', value: 'daily' },
+                { label: 'Weekly summary', value: 'weekly' },
+              ]}
+            />
+            <div className="lp__stack">
+              <Checkbox label="Email me about product updates" defaultChecked />
+              <Checkbox label="Make profile public" />
+            </div>
+          </div>
+        </section>
+
+        <section className="lp__section" aria-labelledby="tabs-heading">
+          <p className="lp__overline">03 / Navigation</p>
+          <h2 id="tabs-heading" className="lp__heading">
+            Tabs
+          </h2>
+          <Tabs
+            label="Account settings"
+            tabs={[
+              {
+                id: 'profile',
+                label: 'Profile',
+                content: 'Your name, photo, and public details live here.',
+              },
+              {
+                id: 'billing',
+                label: 'Billing',
+                content: 'Manage your plan, payment method, and invoices.',
+              },
+              {
+                id: 'notifications',
+                label: 'Notifications',
+                content: 'Choose what we email you about and how often.',
+              },
+            ]}
+          />
+        </section>
+
+        <section className="lp__section" aria-labelledby="modal-heading">
+          <p className="lp__overline">04 / Overlay</p>
+          <h2 id="modal-heading" className="lp__heading">
+            Modal
+          </h2>
+          <Button onClick={() => setModalOpen(true)}>Open dialog</Button>
+          <Modal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            title="Publish release"
+            footer={
+              <>
+                <Button variant="secondary" onClick={() => setModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button onClick={() => setModalOpen(false)}>Publish</Button>
+              </>
+            }
+          >
+            <p>
+              Focus is trapped in here, Escape closes it, the page behind cannot
+              scroll, and focus returns to the trigger when it closes.
+            </p>
+          </Modal>
+        </section>
+      </main>
+
+      <footer className="lp__footer">
+        <p className="lp__overline">Bespoke — an accessible component system</p>
+      </footer>
+    </div>
   );
 }

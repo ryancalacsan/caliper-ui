@@ -1,44 +1,58 @@
 // =============================================================================
-// Color tokens
+// Color tokens - "Editorial Noir"
 // -----------------------------------------------------------------------------
-// Two layers live here:
-//   1. Primitives: the raw palette (neutral / brand / feedback ramps).
-//   2. Semantics:  named roles that components actually consume.
+// Two layers:
+//   1. Primitives: ink (cool near-black ramp), bone (warm paper neutrals),
+//      iris (the blue-violet accent), plus danger / success feedback ramps.
+//   2. Semantics: named roles components consume. Two themes share the role
+//      names: an editorial light (paper + ink) and a noir dark (ink + bone).
 //
-// Components never reach for a primitive. They use a semantic role such as
-// `text` or `primary`, so a future theme can repoint the role without touching
-// component code. Every text-on-background pairing below is chosen to clear
-// WCAG 2.2 AA: 4.5:1 for body text, 3:1 for large text and UI boundaries.
+// The signature is restraint plus one expressive accent: mostly monochrome,
+// with the iris and the iridescent gradient carrying all the color. Every
+// text-on-surface pairing clears WCAG 2.2 AA, verified by scripts/check-contrast.
 // =============================================================================
 
 @use 'sass:map';
 
 // --- Primitives -------------------------------------------------------------
 
-$neutral: (
+// Cool, slightly blue near-black ramp. The base of the whole system.
+$ink: (
   '0': #fff,
-  '50': #f8fafc,
-  '100': #f1f5f9,
-  '200': #e2e8f0,
-  '300': #cbd5e1,
-  '400': #94a3b8,
-  '500': #64748b,
-  '600': #475569,
-  '700': #334155,
-  '800': #1e293b,
-  '900': #0f172a,
+  '50': #f3f4f8,
+  '100': #e7eaf0,
+  '200': #cbd0dc,
+  '300': #a8b0c2,
+  '400': #8089a0,
+  '500': #5f6982,
+  '600': #444d63,
+  '700': #2c3344,
+  '800': #1e2433,
+  '850': #161b29,
+  '900': #0f1320,
+  '950': #0a0d14,
 );
-$brand: (
-  '50': #eef2ff,
-  '100': #e0e7ff,
-  '200': #c7d2fe,
-  '300': #a5b4fc,
-  '400': #818cf8,
-  '500': #6366f1,
-  '600': #4f46e5,
-  '700': #4338ca,
-  '800': #3730a3,
-  '900': #312e81,
+
+// Warm off-white neutrals for the light theme surfaces and hairlines.
+$bone: (
+  'raised': #fffefb,
+  'paper': #f4f1ea,
+  'sink': #ebe7dc,
+  'line': #ddd8ca,
+);
+
+// Iris: the blue-violet accent ramp that anchors the iridescent gradient.
+$iris: (
+  '50': #f1effe,
+  '100': #e5e0fd,
+  '200': #cabffb,
+  '300': #ab9bf8,
+  '400': #8f7af4,
+  '500': #7659ee,
+  '600': #6244e0,
+  '700': #4f36bd,
+  '800': #3e2b94,
+  '900': #2f2170,
 );
 $danger: (
   '50': #fef2f2,
@@ -60,114 +74,116 @@ $success: (
   '950': #052e16,
 );
 
-// --- Semantic roles ---------------------------------------------------------
-// Two themes share one set of role names. Components only ever read a role, so
-// switching the theme is a matter of repointing these and nothing else. Every
-// pairing is annotated with its measured contrast against the surface it lands
-// on, and both themes clear WCAG 2.2 AA.
-//
-// One subtlety the dark theme exposes: `danger` as text wants to be a light red
-// on a dark surface, while a danger button wants a darker red so its white
-// label passes. Those are genuinely different needs, so the solid action color
-// lives in its own `danger-solid` role rather than being overloaded onto
-// `danger`.
+// The signature iridescent gradient. Used sparingly: hero, focus glow, the
+// primary CTA sheen. Never behind body text.
+$gradient-accent: linear-gradient(115deg, #5b8def 0%, #7659ee 46%, #c069cf 100%);
+
+// --- Semantic roles: editorial light ----------------------------------------
 
 $semantic: (
   // Surfaces
-  'bg': map.get($neutral, '50'),          // app canvas
-  'surface': map.get($neutral, '0'),      // cards, modals, fields
-  'surface-raised': map.get($neutral, '0'),
+  'bg': map.get($bone, 'paper'),
+  'surface': map.get($bone, 'raised'),
+  'surface-raised': map.get($ink, '0'),
 
-  // Text (on `surface` / white)
-  'text': map.get($neutral, '900'),       // 17.4:1  AAA
-  'text-muted': map.get($neutral, '600'), // 7.4:1   AAA, help text
-  'text-subtle': map.get($neutral, '500'),// 4.7:1   AA,  placeholders
-  'text-on-primary': map.get($neutral, '0'), // white on brand-600: 6.3:1 AA
+  // Text (on paper / raised surface)
+  'text': map.get($ink, '950'),
+  'text-muted': map.get($ink, '600'),
+  'text-subtle': map.get($ink, '500'),
+  'text-on-primary': map.get($ink, '0'),
 
-  // Borders and dividers (need 3:1 against adjacent surface)
-  'border': map.get($neutral, '300'),     // 1.4:1 decorative divider
-  'border-strong': map.get($neutral, '400'), // 3.1:1 field outline
-  'border-focus': map.get($brand, '600'),
+  // Borders
+  'border': map.get($bone, 'line'),
+  'border-strong': map.get($ink, '400'),
+  'border-focus': map.get($iris, '600'),
 
   // Brand / primary action
-  'primary': map.get($brand, '600'),
-  'primary-hover': map.get($brand, '700'),
-  'primary-active': map.get($brand, '800'),
-  'primary-bg': map.get($brand, '50'),    // subtle tint for ghost hover
-  'primary-bg-strong': map.get($brand, '100'),
+  'primary': map.get($iris, '600'),
+  'primary-hover': map.get($iris, '700'),
+  'primary-active': map.get($iris, '800'),
+  'primary-bg': map.get($iris, '50'),
+  'primary-bg-strong': map.get($iris, '100'),
+  // Accent as text/link color (on surfaces and tints), distinct from the
+  // primary fill. Same value here, diverges in dark where the fill must stay
+  // punchy but text on a tint needs to be lighter to clear AA.
+  'accent-text': map.get($iris, '600'),
 
   // Feedback: error
-  'danger': map.get($danger, '700'),      // 6.8:1 text on white
-  'danger-solid': map.get($danger, '700'),     // button bg, white label 6.8:1
+  'danger': map.get($danger, '700'),
+  'danger-solid': map.get($danger, '700'),
   'danger-solid-hover': map.get($danger, '800'),
-  'text-on-danger': map.get($neutral, '0'),    // white label on danger button
+  'text-on-danger': map.get($ink, '0'),
   'danger-border': map.get($danger, '600'),
   'danger-bg': map.get($danger, '50'),
 
   // Feedback: success
-  'success': map.get($success, '700'),    // 4.9:1 text on white
+  'success': map.get($success, '700'),
   'success-bg': map.get($success, '50'),
 
-  // Focus ring
-  'focus-ring': map.get($brand, '600'),
+  // Focus
+  'focus-ring': map.get($iris, '600'),
 
-  // Overlay scrim behind modals
-  'overlay': rgba(map.get($neutral, '900'), 0.55),
+  // Overlay scrim
+  'overlay': rgba(map.get($ink, '950'), 0.5),
 
-  // Inverse surface for tooltips and dark chips (white on it: 17:1)
-  'inverse-surface': map.get($neutral, '900'),
-  'inverse-text': map.get($neutral, '0'),
+  // Inverse surface for tooltips (dark on light)
+  'inverse-surface': map.get($ink, '900'),
+  'inverse-text': map.get($bone, 'paper'),
+
+  // Expressive accent
+  'gradient-accent': $gradient-accent,
 );
 
-// --- Dark theme -------------------------------------------------------------
-// Same roles, repointed for a dark canvas. Surfaces step up from near-black,
-// text steps down from near-white, and the primary action flips to a lighter
-// indigo carrying dark text (which is the accessible direction for a bright
-// accent on dark, and the conventional one).
+// --- Semantic roles: noir dark ----------------------------------------------
 
 $semantic-dark: (
   // Surfaces
-  'bg': map.get($neutral, '900'),         // app canvas
-  'surface': map.get($neutral, '800'),    // cards, modals, fields
-  'surface-raised': map.get($neutral, '700'),
+  'bg': map.get($ink, '950'),
+  'surface': map.get($ink, '850'),
+  'surface-raised': map.get($ink, '800'),
 
-  // Text (on `surface` = neutral-800)
-  'text': map.get($neutral, '50'),        // 14.0:1  AAA
-  'text-muted': map.get($neutral, '300'), // 9.0:1   AAA, help text
-  'text-subtle': map.get($neutral, '400'),// 5.4:1   AA,  placeholders
-  'text-on-primary': map.get($neutral, '900'), // dark on brand-400: 5.9:1 AA
+  // Text (on surface = ink-850)
+  'text': map.get($bone, 'paper'),
+  'text-muted': map.get($ink, '300'),
+  'text-subtle': map.get($ink, '400'),
+  'text-on-primary': map.get($ink, '950'),
 
-  // Borders (3:1 against neutral-800 surface)
-  'border': map.get($neutral, '700'),     // decorative divider
-  'border-strong': map.get($neutral, '500'), // 3.1:1 field outline
-  'border-focus': map.get($brand, '400'),
+  // Borders
+  'border': map.get($ink, '700'),
+  'border-strong': map.get($ink, '400'),
+  'border-focus': map.get($iris, '400'),
 
-  // Brand / primary action (lighter indigo + dark text)
-  'primary': map.get($brand, '400'),
-  'primary-hover': map.get($brand, '300'),
-  'primary-active': map.get($brand, '200'),
-  'primary-bg': rgba(map.get($brand, '400'), 0.16),
-  'primary-bg-strong': rgba(map.get($brand, '400'), 0.28),
+  // Brand / primary action (light iris + ink text)
+  'primary': map.get($iris, '400'),
+  'primary-hover': map.get($iris, '300'),
+  'primary-active': map.get($iris, '200'),
+  'primary-bg': rgba(map.get($iris, '400'), 0.18),
+  'primary-bg-strong': rgba(map.get($iris, '400'), 0.3),
+  // Lighter than the fill so accent text clears AA on the iris tint.
+  'accent-text': map.get($iris, '300'),
 
   // Feedback: error
-  'danger': map.get($danger, '400'),      // 5.3:1 text on neutral-800
-  'danger-solid': map.get($danger, '600'),     // button bg, white label 4.9:1
+  'danger': map.get($danger, '400'),
+  'danger-solid': map.get($danger, '600'),
   'danger-solid-hover': map.get($danger, '700'),
-  'text-on-danger': map.get($neutral, '0'),    // white label on danger button
+  'text-on-danger': map.get($ink, '0'),
   'danger-border': map.get($danger, '400'),
   'danger-bg': map.get($danger, '950'),
 
   // Feedback: success
-  'success': map.get($success, '400'),    // 8.2:1 text on neutral-800
+  'success': map.get($success, '400'),
   'success-bg': map.get($success, '950'),
 
-  // Focus ring
-  'focus-ring': map.get($brand, '400'),
+  // Focus
+  'focus-ring': map.get($iris, '400'),
 
-  // Overlay scrim behind modals
-  'overlay': rgba(#000, 0.6),
+  // Overlay scrim
+  'overlay': rgba(#000, 0.62),
 
-  // Inverse surface flips to light, so a tooltip stays high-contrast
-  'inverse-surface': map.get($neutral, '50'),
-  'inverse-text': map.get($neutral, '900'),
+  // Inverse surface flips to light so a tooltip stays high-contrast
+  'inverse-surface': map.get($bone, 'paper'),
+  'inverse-text': map.get($ink, '950'),
+
+  // Expressive accent
+  'gradient-accent': $gradient-accent,
 );

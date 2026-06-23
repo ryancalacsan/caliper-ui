@@ -1,19 +1,21 @@
 // =============================================================================
 // Typography tokens
 // -----------------------------------------------------------------------------
-// A modular type scale built on a 1rem (16px) base with a 1.25 (major third)
-// ratio. Sizes are named by t-shirt size rather than by step number so intent
-// reads clearly at the call site.
+// An editorial pairing: a high-contrast serif (Fraunces) for display headings,
+// a refined grotesque (Hanken Grotesk) for UI and body, and a monospace (Geist
+// Mono) for code and the tiny uppercase labels. The scale runs wide on purpose:
+// big display sizes against small letter-spaced labels is the editorial move.
 // =============================================================================
 
 $font-family: (
-  'sans': (system-ui, -apple-system, 'Segoe UI', roboto, helvetica, arial, sans-serif),
-  'mono': (ui-monospace, 'SF Mono', 'Cascadia Code', menlo, consolas, monospace),
+  'display': ('Fraunces Variable', 'Iowan Old Style', georgia, 'Times New Roman', serif),
+  'sans': ('Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif),
+  'mono': ('Geist Mono Variable', ui-monospace, 'SF Mono', menlo, monospace),
 );
 
-// 1.25 modular scale, rounded to clean rem values.
+// A 1.25 modular scale on a 1rem / 16px base, extended up top for display work.
 $font-size: (
-  'xs': 0.75rem,    // 12px - fine print, captions
+  'xs': 0.75rem,    // 12px - micro-labels, captions
   'sm': 0.875rem,   // 14px - help text, dense UI
   'base': 1rem,     // 16px - body default
   'md': 1.125rem,   // 18px - lead paragraph
@@ -21,21 +23,29 @@ $font-size: (
   'xl': 1.5rem,     // 24px
   '2xl': 1.875rem,  // 30px
   '3xl': 2.25rem,   // 36px
+  '4xl': 3rem,      // 48px - section display
+  '5xl': 4rem,      // 64px - page display
+  '6xl': 5.25rem,   // 84px - hero display
 );
 $font-weight: (
   'regular': 400,
   'medium': 500,
   'semibold': 600,
   'bold': 700,
+  // Fraunces is variable, so the display face can push further for impact.
+  'black': 900,
 );
 $line-height: (
-  'tight': 1.2,   // headings
-  'snug': 1.35,
-  'normal': 1.5,  // body
-  'relaxed': 1.7,
+  'none': 1,      // large display
+  'tight': 1.1,   // headings
+  'snug': 1.3,
+  'normal': 1.55, // body
+  'relaxed': 1.75,
 );
 $letter-spacing: (
+  'tightest': -0.03em, // big display, pulls the serif together
   'tight': -0.01em,
   'normal': 0,
-  'wide': 0.02em,
+  'wide': 0.04em,
+  'wider': 0.14em,     // uppercase eyebrows and micro-labels
 );

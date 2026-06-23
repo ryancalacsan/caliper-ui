@@ -14,6 +14,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,md,json}\" \"tests/**/*.ts\" \"*.{ts,md,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,md,json}\" \"tests/**/*.ts\" \"*.{ts,md,json}\"",
     "typecheck": "tsc -b --noEmit",
+    "test:contrast": "node scripts/check-contrast.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:visual": "playwright test",
@@ -22,6 +23,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@fontsource-variable/fraunces": "^5.2.9",
+    "@fontsource-variable/geist-mono": "^5.2.8",
+    "@fontsource-variable/hanken-grotesk": "^5.2.8",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },

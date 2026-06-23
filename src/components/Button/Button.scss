@@ -88,7 +88,7 @@
 
   &--ghost {
     background-color: transparent;
-    color: var(--color-primary);
+    color: var(--color-accent-text);
 
     &:hover:not(:disabled) {
       background-color: var(--color-primary-bg);

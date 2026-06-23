@@ -127,7 +127,7 @@
 
     &[aria-selected='true'] {
       font-weight: var(--weight-medium);
-      color: var(--color-primary);
+      color: var(--color-accent-text);
     }
 
     &--disabled {
@@ -140,7 +140,7 @@
     flex-shrink: 0;
     width: 1rem;
     height: 1rem;
-    color: var(--color-primary);
+    color: var(--color-accent-text);
   }
 
   &__help {

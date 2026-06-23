@@ -1,5 +1,7 @@
 import type { Preview } from '@storybook/react-vite'
-// Load the token layer + reset so every story renders on the real foundation.
+// Load the typefaces + token layer + reset so every story renders on the real
+// foundation.
+import '../src/styles/fonts'
 import '../src/styles/global.scss'
 import { withTheme } from './withTheme'
 
