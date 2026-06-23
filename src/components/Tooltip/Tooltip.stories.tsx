@@ -35,6 +35,15 @@ const meta = {
       options: ['top', 'bottom', 'left', 'right'],
     },
     delay: { control: { type: 'number', min: 0, step: 50 } },
+    // children is the trigger element, not something you pick from a control,
+    // and its full TypeScript type is noise in the table. Show a clean summary
+    // and turn the control off.
+    children: {
+      control: false,
+      description:
+        'The trigger. Must be a single focusable element such as a button or a link.',
+      table: { type: { summary: 'ReactElement' } },
+    },
   },
   render: (args) => (
     <Tooltip {...args}>
