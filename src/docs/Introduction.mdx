@@ -2,74 +2,27 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
 
+{/* One visual flourish (the iris rule) that renders reliably, then Storybook's
+own markdown for the text, which the docs canvas styles crisply. The branded
+sidebar carries the rest of the identity. */}
+
 <div
   style={{
-    position: 'relative',
-    overflow: 'hidden',
-    borderRadius: '16px',
-    padding: '4rem 3rem',
-    margin: '0 0 2.5rem',
-    background: '#0a0d14',
-    color: '#f4f1ea',
-    fontFamily: 'var(--font-sans, system-ui)',
+    height: '4px',
+    width: '96px',
+    borderRadius: '999px',
+    marginBottom: '1.5rem',
+    background: 'linear-gradient(115deg, #5b8def 0%, #7659ee 46%, #c069cf 100%)',
   }}
->
-  <div
-    style={{
-      position: 'absolute',
-      top: '-30%',
-      right: '-10%',
-      width: '34rem',
-      height: '34rem',
-      background:
-        'linear-gradient(115deg, #5b8def 0%, #7659ee 46%, #c069cf 100%)',
-      opacity: 0.2,
-      filter: 'blur(80px)',
-      pointerEvents: 'none',
-    }}
-  />
-  <p
-    style={{
-      position: 'relative',
-      margin: 0,
-      fontFamily: 'var(--font-mono, monospace)',
-      fontSize: '0.75rem',
-      letterSpacing: '0.14em',
-      textTransform: 'uppercase',
-      color: '#ab9bf8',
-    }}
-  >
-    Accessible component system
-  </p>
-  <h1
-    style={{
-      position: 'relative',
-      margin: '0.75rem 0 0',
-      fontFamily: 'var(--font-display, Georgia, serif)',
-      fontSize: 'clamp(2.5rem, 6vw, 4rem)',
-      lineHeight: 1,
-      letterSpacing: '-0.03em',
-      fontWeight: 600,
-      color: '#f4f1ea',
-    }}
-  >
-    Bespoke
-  </h1>
-  <p
-    style={{
-      position: 'relative',
-      maxWidth: '34rem',
-      marginTop: '1.25rem',
-      fontSize: '1.0625rem',
-      lineHeight: 1.6,
-      color: '#cbd0dc',
-    }}
-  >
-    A small, accessible React component library. Hand-written SCSS with BEM,
-    design tokens as the single source of truth, and accessibility as a first
-    principle. Eight components, two themes, both held to WCAG 2.2 AA.
-  </p>
-</div>
+/>
+
+`ACCESSIBLE COMPONENT SYSTEM`
+
+# Bespoke
+
+A small, accessible React component library. Hand-written SCSS with BEM, design
+tokens as the single source of truth, and accessibility as a first principle.
+Eight components, two themes, both held to WCAG 2.2 AA.
 
 ## How this is organized
 
