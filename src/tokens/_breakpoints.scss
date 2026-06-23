@@ -1,0 +1,15 @@
+// =============================================================================
+// Breakpoint tokens
+// -----------------------------------------------------------------------------
+// Named viewport widths for responsive layout. They live in rem so they respond
+// to the user's base font size. Unlike the other tokens these are not emitted as
+// custom properties: a media query condition cannot read a custom property, so
+// they are consumed in Sass through the `media-up` / `media-down` mixins.
+// =============================================================================
+
+$breakpoints: (
+  'sm': 30rem, // 480px - large phone
+  'md': 48rem, // 768px - tablet
+  'lg': 64rem, // 1024px - small laptop
+  'xl': 80rem, // 1280px - desktop
+);

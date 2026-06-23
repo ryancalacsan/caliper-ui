@@ -6,7 +6,31 @@
 // same way without copy-paste drift.
 // =============================================================================
 
+@use 'sass:map';
+@use '../tokens' as tokens;
 @use 'functions' as fn;
+
+// Responsive helpers over the breakpoint tokens. `media-up` is the mobile-first
+// idiom (enhance upward); `media-down` patches a layout below a breakpoint.
+@mixin media-up($name) {
+  @if not map.has-key(tokens.$breakpoints, $name) {
+    @error 'Unknown breakpoint: "#{$name}".';
+  }
+
+  @media (min-width: map.get(tokens.$breakpoints, $name)) {
+    @content;
+  }
+}
+
+@mixin media-down($name) {
+  @if not map.has-key(tokens.$breakpoints, $name) {
+    @error 'Unknown breakpoint: "#{$name}".';
+  }
+
+  @media (max-width: (map.get(tokens.$breakpoints, $name) - 0.02rem)) {
+    @content;
+  }
+}
 
 // A visible, high-contrast focus indicator. Uses :focus-visible so it shows for
 // keyboard users without flashing on every mouse click. The offset keeps the

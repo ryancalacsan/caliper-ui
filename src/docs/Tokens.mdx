@@ -149,3 +149,23 @@ Durations (`--duration-fast` 120ms to `--duration-slow` 320ms) and easings
 (`--ease-standard`, `--ease-emphasized`, `--ease-exit`). Every animated property
 is wrapped in a `prefers-reduced-motion: no-preference` guard, so motion never
 plays for users who asked the OS to reduce it.
+
+## Breakpoints
+
+Named viewport widths in rem, so they respond to the user's base font size. A
+media query condition cannot read a custom property, so unlike the other tokens
+these are consumed in Sass through the `media-up` / `media-down` mixins rather
+than as `var(--...)`.
+
+| Token | Value | Target |
+| --- | --- | --- |
+| sm | 30rem / 480px | large phone |
+| md | 48rem / 768px | tablet |
+| lg | 64rem / 1024px | small laptop |
+| xl | 80rem / 1280px | desktop |
+
+```scss
+@include mix.media-down('md') {
+  padding-inline: var(--space-lg);
+}
+```

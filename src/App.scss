@@ -46,6 +46,10 @@
     max-width: 68rem;
     margin-inline: auto;
     padding: var(--space-lg) var(--space-xl);
+
+    @include mix.media-down('md') {
+      padding: var(--space-md) var(--space-lg);
+    }
   }
 
   &__wordmark {
@@ -91,6 +95,10 @@
     max-width: 68rem;
     margin-inline: auto;
     padding-inline: var(--space-xl);
+
+    @include mix.media-down('md') {
+      padding-inline: var(--space-lg);
+    }
   }
 
   &__footer {
@@ -99,6 +107,10 @@
     padding: var(--space-2xl) var(--space-xl) var(--space-3xl);
     margin-top: var(--space-2xl);
     border-top: 1px solid var(--color-border);
+
+    @include mix.media-down('md') {
+      padding-inline: var(--space-lg);
+    }
   }
 
   // --- Eyebrow / overline labels --------------------------------------------
@@ -119,6 +131,10 @@
   // --- Hero -----------------------------------------------------------------
   &__hero {
     padding-block: var(--space-3xl) var(--space-2xl);
+
+    @include mix.media-down('md') {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
   }
 
   &__eyebrow {
@@ -127,7 +143,9 @@
 
   &__title {
     margin: 0;
-    font-size: clamp(2.75rem, 7vw, var(--text-6xl));
+
+    // Scales from a phone-friendly size up to the full display token.
+    font-size: clamp(2.25rem, 8vw, var(--text-6xl));
     line-height: var(--leading-none);
     letter-spacing: var(--tracking-tightest);
     font-weight: var(--weight-semibold);
@@ -163,11 +181,16 @@
 
   &__meta {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2xl);
     margin: var(--space-2xl) 0 0;
     padding: var(--space-lg) 0 0;
     list-style: none;
     border-top: 1px solid var(--color-border);
+
+    @include mix.media-down('sm') {
+      gap: var(--space-lg);
+    }
 
     li {
       display: flex;
@@ -193,6 +216,10 @@
   &__section {
     padding-block: var(--space-2xl);
     border-top: 1px solid var(--color-border);
+
+    @include mix.media-down('md') {
+      padding-block: var(--space-xl);
+    }
   }
 
   &__heading {
