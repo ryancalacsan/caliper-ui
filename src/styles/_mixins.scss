@@ -18,6 +18,20 @@
   }
 }
 
+// A softer focus treatment for fields that own their border: the border shifts
+// to the accent and a halo ring is drawn with box-shadow. The transparent
+// outline is intentional - it stays invisible normally but becomes a real
+// outline under Windows High Contrast / forced-colors, so the focus indicator
+// never disappears for those users.
+@mixin field-focus {
+  &:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus-ring) 38%, transparent);
+  }
+}
+
 // Hide content visually while leaving it available to screen readers. Used for
 // things like a label that is communicated visually some other way, or live
 // status text. This is the standard, battle-tested implementation.

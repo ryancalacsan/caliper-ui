@@ -1,0 +1,98 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+<div
+  style={{
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: '16px',
+    padding: '4rem 3rem',
+    margin: '0 0 2.5rem',
+    background: '#0a0d14',
+    color: '#f4f1ea',
+    fontFamily: 'var(--font-sans, system-ui)',
+  }}
+>
+  <div
+    style={{
+      position: 'absolute',
+      top: '-30%',
+      right: '-10%',
+      width: '34rem',
+      height: '34rem',
+      background:
+        'linear-gradient(115deg, #5b8def 0%, #7659ee 46%, #c069cf 100%)',
+      opacity: 0.2,
+      filter: 'blur(80px)',
+      pointerEvents: 'none',
+    }}
+  />
+  <p
+    style={{
+      position: 'relative',
+      margin: 0,
+      fontFamily: 'var(--font-mono, monospace)',
+      fontSize: '0.75rem',
+      letterSpacing: '0.14em',
+      textTransform: 'uppercase',
+      color: '#ab9bf8',
+    }}
+  >
+    Accessible component system
+  </p>
+  <h1
+    style={{
+      position: 'relative',
+      margin: '0.75rem 0 0',
+      fontFamily: 'var(--font-display, Georgia, serif)',
+      fontSize: 'clamp(2.5rem, 6vw, 4rem)',
+      lineHeight: 1,
+      letterSpacing: '-0.03em',
+      fontWeight: 600,
+      color: '#f4f1ea',
+    }}
+  >
+    Bespoke
+  </h1>
+  <p
+    style={{
+      position: 'relative',
+      maxWidth: '34rem',
+      marginTop: '1.25rem',
+      fontSize: '1.0625rem',
+      lineHeight: 1.6,
+      color: '#cbd0dc',
+    }}
+  >
+    A small, accessible React component library. Hand-written SCSS with BEM,
+    design tokens as the single source of truth, and accessibility as a first
+    principle. Eight components, two themes, both held to WCAG 2.2 AA.
+  </p>
+</div>
+
+## How this is organized
+
+- **Foundations / Design tokens** — the color, type, spacing, radii, and motion
+  tokens every component is built from. Start here.
+- **Components** — Button, TextField, Modal, Checkbox, RadioGroup, Select, Tabs,
+  and Tooltip. Each has prop controls, an Accessibility panel (axe), and a
+  documented usage page.
+
+## Try the system
+
+- Use the **theme switcher** in the toolbar to flip every story between the
+  light (Daylight) and dark (Noir) themes.
+- Open the **Accessibility** panel on any story to see the axe checks run live.
+- Open the **Interactions** panel on Button, Tabs, Select, Modal, Tooltip,
+  Checkbox, or RadioGroup to watch the keyboard flows replay step by step.
+
+## Principles
+
+1. **Tokens are the source of truth.** No component holds a raw hex or pixel
+   value. A theme is a second set of token values, nothing more.
+2. **Accessibility is structural.** Real semantic elements, correct ARIA, managed
+   focus, visible focus indicators, `prefers-reduced-motion` respected, and AA
+   contrast verified by script.
+3. **The CSS is the artifact.** Hand-written, structured SCSS with BEM. No utility
+   framework, on purpose.

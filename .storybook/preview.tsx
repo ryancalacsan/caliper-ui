@@ -25,6 +25,11 @@ const preview: Preview = {
     theme: 'light',
   },
   parameters: {
+    options: {
+      storySort: {
+        order: ['Introduction', 'Foundations', 'Components'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,

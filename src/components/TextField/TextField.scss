@@ -49,13 +49,8 @@
       border-color: var(--color-text-subtle);
     }
 
-    // Custom focus treatment: a ring plus a color shift, since the input owns
-    // its border. focus-visible keeps it keyboard-friendly.
-    &:focus-visible {
-      outline: 2px solid var(--color-focus-ring);
-      outline-offset: 2px;
-      border-color: var(--color-border-focus);
-    }
+    // A soft accent halo on focus, since the input owns its border.
+    @include mix.field-focus;
 
     &:disabled {
       background-color: var(--color-bg);
@@ -83,8 +78,11 @@
       // Doubling the border weight gives a non-color cue.
       border-width: 2px;
 
+      // The focus halo turns danger-colored to match the error state.
       &:focus-visible {
-        outline-color: var(--color-danger-border);
+        border-color: var(--color-danger-border);
+        box-shadow: 0 0 0 3px
+          color-mix(in srgb, var(--color-danger-border) 38%, transparent);
       }
     }
   }
