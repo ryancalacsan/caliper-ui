@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "vercel-build": "npm run build && STORYBOOK_BASE_PATH=/storybook/ storybook build -o dist/storybook",
     "preview": "vite preview",
     "lint": "oxlint && stylelint \"src/**/*.scss\"",
     "lint:js": "oxlint",

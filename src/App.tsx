@@ -61,10 +61,15 @@ export function App() {
             <Button shape="pill" onClick={() => setModalOpen(true)}>
               Explore the system
             </Button>
-            <Tooltip content="Opens the documented component set">
-              <Button variant="secondary" shape="pill">
+            <Tooltip content="Open the component docs">
+              {/* A link styled as the secondary button. On the deployed site
+                  this serves the Storybook build at /storybook. */}
+              <a
+                className="button button--secondary button--md button--pill"
+                href="/storybook"
+              >
                 Storybook
-              </Button>
+              </a>
             </Tooltip>
           </div>
           <ul className="lp__meta">
