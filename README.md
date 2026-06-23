@@ -15,6 +15,8 @@ It is meant to be read as much as run.
   Tooltip.
 - **Storybook** with the accessibility (axe) addon, prop controls, and a usage
   doc per component.
+- **Tests**: interaction tests that drive the keyboard flows, and visual
+  regression snapshots of each component in both themes.
 - **A lint and format baseline**: oxlint for TypeScript, Stylelint for SCSS,
   Prettier for everything else.
 
@@ -96,6 +98,25 @@ its toolbar so the axe panel can check both themes.
 Storybook ships with the axe addon enabled so these checks run against every
 story, visibly, in the Accessibility panel.
 
+## Testing
+
+Two layers, both running the real components in a real browser.
+
+**Interaction tests** live in the stories as `play` functions and run headless
+through the Storybook Vitest addon (`npm test`). They drive the behavior that is
+hard to eyeball: arrow-key navigation in Tabs, type-ahead and selection in
+Select, the Modal focus trap and focus restore, the Tooltip showing on focus and
+dismissing on Escape. Because they are play functions, the same steps also replay
+visibly in Storybook's Interactions panel.
+
+**Visual regression** lives in `tests/visual.spec.ts` and runs with Playwright
+(`npm run test:visual`). It snapshots one representative story per component in
+both the light and dark themes, so a styling change that shifts a pixel is caught
+on review. Baselines are committed under `tests/__screenshots__/`. They carry the
+OS in the file name, so a run on a different platform regenerates rather than
+fails falsely; update them on purpose with `npm run test:visual:update`, and in
+CI generate them in the official Playwright container so they match.
+
 ## Project structure
 
 ```
@@ -125,10 +146,14 @@ src/
     Tooltip/           hover + focus, escape to dismiss, describedby
   docs/
     Tokens.mdx         the token reference, rendered in Storybook
+tests/
+  visual.spec.ts       Playwright visual regression, light and dark
+  __screenshots__/     committed baselines
 ```
 
 Each component folder holds the component, its `.scss`, a typed `index.ts`, a
-Storybook story, and (through autodocs) a usage doc.
+Storybook story (with `play` interaction tests), and a usage doc through
+autodocs.
 
 ## Getting started
 
@@ -140,19 +165,22 @@ npm run dev           # the demo page at http://localhost:5173
 
 ## Scripts
 
-| Script                    | What it does                      |
-| ------------------------- | --------------------------------- |
-| `npm run dev`             | Run the Vite demo page            |
-| `npm run storybook`       | Run Storybook with the a11y addon |
-| `npm run build`           | Type-check and build the library  |
-| `npm run build-storybook` | Build the static Storybook site   |
-| `npm run lint`            | oxlint (TS) and Stylelint (SCSS)  |
-| `npm run format`          | Prettier write                    |
-| `npm run typecheck`       | TypeScript, no emit               |
+| Script                       | What it does                        |
+| ---------------------------- | ----------------------------------- |
+| `npm run dev`                | Run the Vite demo page              |
+| `npm run storybook`          | Run Storybook with the a11y addon   |
+| `npm test`                   | Interaction tests (play functions)  |
+| `npm run test:visual`        | Visual regression against baselines |
+| `npm run test:visual:update` | Refresh the visual baselines        |
+| `npm run build`              | Type-check and build the library    |
+| `npm run build-storybook`    | Build the static Storybook site     |
+| `npm run lint`               | oxlint (TS) and Stylelint (SCSS)    |
+| `npm run format`             | Prettier write                      |
+| `npm run typecheck`          | TypeScript, no emit                 |
 
 ## What comes next
 
-The component set covers the common form and disclosure patterns, and a dark
-theme proves the token model holds. The natural next step is automated coverage:
-Storybook interaction tests for the keyboard flows and a visual regression pass
-across both themes.
+The component set covers the common form and disclosure patterns, a dark theme
+proves the token model holds, and the keyboard flows and visuals are under test.
+A reasonable next step is wiring these checks into a CI workflow, and growing the
+set as real product needs surface.

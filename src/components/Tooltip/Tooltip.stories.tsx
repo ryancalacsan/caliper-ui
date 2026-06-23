@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { Tooltip } from './Tooltip';
 import { Button } from '../Button';
 
@@ -46,6 +47,33 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/**
+ * Interaction test: the tooltip shows on keyboard focus (not only hover) and
+ * dismisses on Escape while focus stays on the trigger.
+ */
+export const ShowsOnFocus: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Quick save' });
+    const tip = canvas.getByText('Saves without leaving the page');
+
+    await step('Hidden until the trigger is focused', async () => {
+      await expect(tip).not.toBeVisible();
+    });
+
+    await step('Focus reveals the tooltip', async () => {
+      button.focus();
+      await waitFor(() => expect(tip).toBeVisible());
+    });
+
+    await step('Escape dismisses it, focus stays on the trigger', async () => {
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(tip).not.toBeVisible());
+      await expect(button).toHaveFocus();
+    });
+  },
+};
 
 export const Placements: Story = {
   render: () => (

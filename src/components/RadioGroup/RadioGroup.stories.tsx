@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect } from 'storybook/test';
 import { RadioGroup, type RadioGroupProps } from './RadioGroup';
 
 const meta = {
@@ -52,6 +53,24 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: { defaultValue: 'daily' },
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+
+    await step('The default value is selected', async () => {
+      await expect(
+        canvas.getByRole('radio', { name: 'Daily digest' }),
+      ).toBeChecked();
+    });
+
+    await step('Arrow keys move the selection within the group', async () => {
+      const daily = canvas.getByRole('radio', { name: 'Daily digest' });
+      daily.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      await expect(
+        canvas.getByRole('radio', { name: 'Weekly summary' }),
+      ).toBeChecked();
+    });
+  },
 };
 
 export const WithPerOptionHelp: Story = {

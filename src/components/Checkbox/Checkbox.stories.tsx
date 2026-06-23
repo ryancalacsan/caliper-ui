@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect } from 'storybook/test';
 import { Checkbox } from './Checkbox';
 
 const meta = {
@@ -36,6 +37,18 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** Interaction test: the box toggles by keyboard (Space) from the label focus. */
+export const TogglesWithKeyboard: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const box = canvas.getByRole('checkbox', { name: /product updates/i });
+    await expect(box).not.toBeChecked();
+    box.focus();
+    await userEvent.keyboard(' ');
+    await expect(box).toBeChecked();
+  },
+};
 
 export const Checked: Story = {
   args: { defaultChecked: true, label: 'Subscribed' },

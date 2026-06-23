@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, screen, userEvent, expect, waitFor } from 'storybook/test';
 import { Modal, type ModalProps } from './Modal';
 import { Button } from '../Button';
 import { TextField } from '../TextField';
@@ -113,6 +114,35 @@ function FormDemo(args: ModalProps) {
 export const Default: Story = {
   args: { title: 'Delete project', size: 'md' },
   render: (args) => <ConfirmDemo {...args} />,
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Delete project' });
+
+    await step(
+      'Opening exposes a modal dialog and moves focus in',
+      async () => {
+        await userEvent.click(trigger);
+        const dialog = await screen.findByRole('dialog');
+        await expect(dialog).toHaveAttribute('aria-modal', 'true');
+        await expect(dialog).toHaveAccessibleName('Delete project');
+        // Focus has moved into the dialog.
+        await waitFor(() =>
+          expect(dialog.contains(document.activeElement)).toBe(true),
+        );
+      },
+    );
+
+    await step(
+      'Escape closes it and restores focus to the trigger',
+      async () => {
+        await userEvent.keyboard('{Escape}');
+        await waitFor(() =>
+          expect(screen.queryByRole('dialog')).not.toBeInTheDocument(),
+        );
+        await expect(trigger).toHaveFocus();
+      },
+    );
+  },
 };
 
 /** A form inside the dialog shows the focus trap moving across real fields. */

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect, waitFor } from 'storybook/test';
 import { Select, type SelectProps } from './Select';
 
 const countries = [
@@ -59,6 +60,40 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/**
+ * Interaction test: open with the keyboard, jump to an option with type-ahead,
+ * and commit it with Enter. Focus stays on the combobox throughout.
+ */
+export const KeyboardSelection: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const combobox = canvas.getByRole('combobox');
+
+    await step('Enter opens the listbox', async () => {
+      combobox.focus();
+      await userEvent.keyboard('{Enter}');
+      await expect(combobox).toHaveAttribute('aria-expanded', 'true');
+      await expect(canvas.getByRole('listbox')).toBeVisible();
+    });
+
+    await step('Type-ahead moves the active option to Finland', async () => {
+      await userEvent.keyboard('f');
+      await waitFor(() =>
+        expect(canvas.getByRole('option', { name: 'Finland' })).toHaveClass(
+          'select__option--active',
+        ),
+      );
+    });
+
+    await step('Enter selects it and closes the list', async () => {
+      await userEvent.keyboard('{Enter}');
+      await expect(combobox).toHaveAttribute('aria-expanded', 'false');
+      await expect(combobox).toHaveTextContent('Finland');
+      await expect(combobox).toHaveFocus();
+    });
+  },
+};
 
 export const WithSelectedValue: Story = {
   args: { defaultValue: 'ca' },

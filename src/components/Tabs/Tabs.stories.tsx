@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { within, userEvent, expect } from 'storybook/test';
 import { Tabs } from './Tabs';
 
 const meta = {
@@ -51,6 +52,38 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/**
+ * Interaction test: focus the first tab, then ArrowRight should move selection
+ * to the next tab and the panel should follow (automatic activation).
+ */
+export const KeyboardNavigation: Story = {
+  play: async ({ canvasElement, step }) => {
+    const canvas = within(canvasElement);
+    const profile = canvas.getByRole('tab', { name: 'Profile' });
+
+    await step('First tab is selected and focusable', async () => {
+      profile.focus();
+      await expect(profile).toHaveAttribute('aria-selected', 'true');
+      await expect(profile).toHaveFocus();
+    });
+
+    await step('ArrowRight selects and focuses the next tab', async () => {
+      await userEvent.keyboard('{ArrowRight}');
+      const billing = canvas.getByRole('tab', { name: 'Billing' });
+      await expect(billing).toHaveAttribute('aria-selected', 'true');
+      await expect(billing).toHaveFocus();
+      await expect(
+        canvas.getByRole('tabpanel', { name: 'Billing' }),
+      ).toBeVisible();
+    });
+
+    await step('Home jumps back to the first tab', async () => {
+      await userEvent.keyboard('{Home}');
+      await expect(profile).toHaveAttribute('aria-selected', 'true');
+    });
+  },
+};
 
 export const WithDisabledTab: Story = {
   args: {

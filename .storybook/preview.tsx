@@ -1,23 +1,7 @@
-import { useEffect } from 'react'
-import type { Preview, Decorator } from '@storybook/react-vite'
-import type { ReactNode } from 'react'
+import type { Preview } from '@storybook/react-vite'
 // Load the token layer + reset so every story renders on the real foundation.
 import '../src/styles/global.scss'
-
-// Named so the hook is valid; sets the theme on the document element (not just
-// the story root) so portaled content like Modal and Tooltip is themed too.
-function ThemeWrapper({ theme, children }: { theme: string; children: ReactNode }) {
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-  }, [theme])
-  return <>{children}</>
-}
-
-const withTheme: Decorator = (Story, context) => (
-  <ThemeWrapper theme={context.globals.theme ?? 'light'}>
-    <Story />
-  </ThemeWrapper>
-)
+import { withTheme } from './withTheme'
 
 const preview: Preview = {
   decorators: [withTheme],
