@@ -28,6 +28,15 @@ export function App() {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
+  function exploreComponents() {
+    const el = document.getElementById('components');
+    if (!el) return;
+    const reduce = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  }
+
   return (
     <div className="spec">
       <div className="spec__frame">
@@ -86,9 +95,7 @@ export function App() {
             </p>
 
             <div className="spec__cta">
-              <Button onClick={() => setModalOpen(true)}>
-                Explore the system
-              </Button>
+              <Button onClick={exploreComponents}>Explore the system</Button>
               <Tooltip content="Open the component docs">
                 <a
                   className="button button--secondary button--md button--rounded"
@@ -116,6 +123,7 @@ export function App() {
           </section>
 
           <Plate
+            id="components"
             code="BTN — 01"
             title="Actions"
             meta={['variant: 4', 'radius: 2px']}
@@ -245,18 +253,20 @@ export function App() {
 
 /** A labelled "plate": a spec label column beside a staged set of components. */
 function Plate({
+  id,
   code,
   title,
   meta,
   children,
 }: {
+  id?: string;
   code: string;
   title: string;
   meta: string[];
   children: ReactNode;
 }) {
   return (
-    <section className="plate">
+    <section id={id} className="plate">
       <div className="plate__label">
         <span className="plate__code">{code}</span>
         <h2 className="plate__title">{title}</h2>
