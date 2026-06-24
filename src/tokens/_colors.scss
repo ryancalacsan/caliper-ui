@@ -1,63 +1,54 @@
 // =============================================================================
-// Color tokens - "Editorial Noir"
+// Color tokens - "Spec Sheet"
 // -----------------------------------------------------------------------------
-// Two layers:
-//   1. Primitives: ink (cool near-black ramp), bone (warm paper neutrals),
-//      iris (the blue-violet accent), plus danger / success feedback ramps.
-//   2. Semantics: named roles components consume. Two themes share the role
-//      names: an editorial light (paper + ink) and a noir dark (ink + bone).
+// A technical, document-like palette: warm paper and ink, with one signal
+// accent (construction orange). Mostly an inversion model - the light theme is
+// a paper spec sheet, the dark theme is a dev-mode terminal, and the same roles
+// flip between them.
 //
-// The signature is restraint plus one expressive accent: mostly monochrome,
-// with the iris and the iridescent gradient carrying all the color. Every
-// text-on-surface pairing clears WCAG 2.2 AA, verified by scripts/check-contrast.
+// Note on the accent: bright signal orange is vivid but it does NOT clear AA as
+// text on light paper. So it is used for marks, fills, and decoration, while a
+// darker "burnt" orange carries any orange *text*. Every pairing is verified by
+// scripts/check-contrast.
 // =============================================================================
 
 @use 'sass:map';
 
 // --- Primitives -------------------------------------------------------------
 
-// Cool, slightly blue near-black ramp. The base of the whole system.
-$ink: (
-  '0': #fff,
-  '50': #f3f4f8,
-  '100': #e7eaf0,
-  '200': #cbd0dc,
-  '300': #a8b0c2,
-  '400': #8089a0,
-  '500': #5f6982,
-  '600': #444d63,
-  '700': #2c3344,
-  '800': #1e2433,
-  '850': #161b29,
-  '900': #0f1320,
-  '950': #0a0d14,
+// Warm neutral ramp, lightest to darkest. Both themes draw from this one ramp.
+$neutral: (
+  '0': #fffdf7,
+  '50': #faf8f2,
+  '100': #f3f1ea,
+  '150': #eceae1,
+  '200': #ddd9cc,
+  '300': #c7c2b2,
+  '400': #8b8678,
+  '500': #6b6657,
+  '600': #565144,
+  '700': #322f26,
+  '800': #232017,
+  '850': #17150f,
+  '900': #16140f,
+  '950': #0f0d0a,
 );
 
-// Warm off-white neutrals for the light theme surfaces and hairlines.
-$bone: (
-  'raised': #fffefb,
-  'paper': #f4f1ea,
-  'sink': #ebe7dc,
-  'line': #ddd8ca,
-);
-
-// Iris: the blue-violet accent ramp that anchors the iridescent gradient.
-$iris: (
-  '50': #f1effe,
-  '100': #e5e0fd,
-  '200': #cabffb,
-  '300': #ab9bf8,
-  '400': #8f7af4,
-  '500': #7659ee,
-  '600': #6244e0,
-  '700': #4f36bd,
-  '800': #3e2b94,
-  '900': #2f2170,
+// Signal: construction orange. 500 is the vivid mark/fill color; 700 is the
+// darker burnt shade used for orange text and the focus ring on light.
+$signal: (
+  '50': #fff1ea,
+  '100': #ffd9c4,
+  '300': #ff8a4d,
+  '400': #ff6a23,
+  '450': #ff5a1a,
+  '500': #ff4d00,
+  '600': #db3f00,
+  '700': #b83400,
 );
 $danger: (
   '50': #fef2f2,
   '100': #fee2e2,
-  '200': #fecaca,
   '300': #fca5a5,
   '400': #f87171,
   '500': #ef4444,
@@ -74,45 +65,41 @@ $success: (
   '950': #052e16,
 );
 
-// The signature iridescent gradient. Used sparingly: hero, focus glow, the
-// primary CTA sheen. Never behind body text.
-$gradient-accent: linear-gradient(115deg, #5b8def 0%, #7659ee 46%, #c069cf 100%);
-
-// --- Semantic roles: editorial light ----------------------------------------
+// --- Semantic roles: paper (light) ------------------------------------------
 
 $semantic: (
   // Surfaces
-  'bg': map.get($bone, 'paper'),
-  'surface': map.get($bone, 'raised'),
-  'surface-raised': map.get($ink, '0'),
+  'bg': map.get($neutral, '100'),
+  'surface': map.get($neutral, '50'),
+  'surface-raised': map.get($neutral, '0'),
 
-  // Text (on paper / raised surface)
-  'text': map.get($ink, '950'),
-  'text-muted': map.get($ink, '600'),
-  'text-subtle': map.get($ink, '500'),
-  'text-on-primary': map.get($ink, '0'),
+  // Text
+  'text': map.get($neutral, '900'),
+  'text-muted': map.get($neutral, '600'),
+  'text-subtle': map.get($neutral, '500'),
+  'text-on-primary': map.get($neutral, '0'),
 
-  // Borders
-  'border': map.get($bone, 'line'),
-  'border-strong': map.get($ink, '400'),
-  'border-focus': map.get($iris, '600'),
+  // Borders (technical hairlines, drawn dark)
+  'border': map.get($neutral, '200'),
+  'border-strong': map.get($neutral, '700'),
+  'border-focus': map.get($neutral, '900'),
 
-  // Brand / primary action
-  'primary': map.get($iris, '600'),
-  'primary-hover': map.get($iris, '700'),
-  'primary-active': map.get($iris, '800'),
-  'primary-bg': map.get($iris, '50'),
-  'primary-bg-strong': map.get($iris, '100'),
-  // Accent as text/link color (on surfaces and tints), distinct from the
-  // primary fill. Same value here, diverges in dark where the fill must stay
-  // punchy but text on a tint needs to be lighter to clear AA.
-  'accent-text': map.get($iris, '600'),
+  // Primary action: ink fill
+  'primary': map.get($neutral, '900'),
+  'primary-hover': map.get($neutral, '800'),
+  'primary-active': map.get($neutral, '950'),
+  'primary-bg': map.get($neutral, '150'),
+  'primary-bg-strong': map.get($neutral, '200'),
+
+  // Accent: the signal. Burnt orange for text/links (clears AA on paper).
+  'accent-text': map.get($signal, '700'),
+  'signal': map.get($signal, '500'),
 
   // Feedback: error
   'danger': map.get($danger, '700'),
   'danger-solid': map.get($danger, '700'),
   'danger-solid-hover': map.get($danger, '800'),
-  'text-on-danger': map.get($ink, '0'),
+  'text-on-danger': map.get($neutral, '0'),
   'danger-border': map.get($danger, '600'),
   'danger-bg': map.get($danger, '50'),
 
@@ -120,53 +107,52 @@ $semantic: (
   'success': map.get($success, '700'),
   'success-bg': map.get($success, '50'),
 
-  // Focus
-  'focus-ring': map.get($iris, '600'),
+  // Focus: burnt orange, a branded ring that still clears 3:1 on paper
+  'focus-ring': map.get($signal, '700'),
 
   // Overlay scrim
-  'overlay': rgba(map.get($ink, '950'), 0.5),
+  'overlay': rgba(map.get($neutral, '950'), 0.45),
 
-  // Inverse surface for tooltips (dark on light)
-  'inverse-surface': map.get($ink, '900'),
-  'inverse-text': map.get($bone, 'paper'),
-
-  // Expressive accent
-  'gradient-accent': $gradient-accent,
+  // Inverse surface for tooltips (ink on light)
+  'inverse-surface': map.get($neutral, '900'),
+  'inverse-text': map.get($neutral, '50'),
 );
 
-// --- Semantic roles: noir dark ----------------------------------------------
+// --- Semantic roles: dev mode (dark) ----------------------------------------
 
 $semantic-dark: (
   // Surfaces
-  'bg': map.get($ink, '950'),
-  'surface': map.get($ink, '850'),
-  'surface-raised': map.get($ink, '800'),
+  'bg': map.get($neutral, '950'),
+  'surface': map.get($neutral, '850'),
+  'surface-raised': map.get($neutral, '800'),
 
-  // Text (on surface = ink-850)
-  'text': map.get($bone, 'paper'),
-  'text-muted': map.get($ink, '300'),
-  'text-subtle': map.get($ink, '400'),
-  'text-on-primary': map.get($ink, '950'),
+  // Text
+  'text': map.get($neutral, '50'),
+  'text-muted': map.get($neutral, '300'),
+  'text-subtle': map.get($neutral, '400'),
+  'text-on-primary': map.get($neutral, '950'),
 
   // Borders
-  'border': map.get($ink, '700'),
-  'border-strong': map.get($ink, '400'),
-  'border-focus': map.get($iris, '400'),
+  'border': map.get($neutral, '700'),
+  'border-strong': map.get($neutral, '400'),
+  'border-focus': map.get($neutral, '50'),
 
-  // Brand / primary action (light iris + ink text)
-  'primary': map.get($iris, '400'),
-  'primary-hover': map.get($iris, '300'),
-  'primary-active': map.get($iris, '200'),
-  'primary-bg': rgba(map.get($iris, '400'), 0.18),
-  'primary-bg-strong': rgba(map.get($iris, '400'), 0.3),
-  // Lighter than the fill so accent text clears AA on the iris tint.
-  'accent-text': map.get($iris, '300'),
+  // Primary action inverts to a light fill
+  'primary': map.get($neutral, '50'),
+  'primary-hover': map.get($neutral, '0'),
+  'primary-active': map.get($neutral, '200'),
+  'primary-bg': rgba(map.get($neutral, '50'), 0.12),
+  'primary-bg-strong': rgba(map.get($neutral, '50'), 0.2),
+
+  // Accent: bright orange clears AA as text on the dark surface
+  'accent-text': map.get($signal, '400'),
+  'signal': map.get($signal, '450'),
 
   // Feedback: error
   'danger': map.get($danger, '400'),
   'danger-solid': map.get($danger, '600'),
   'danger-solid-hover': map.get($danger, '700'),
-  'text-on-danger': map.get($ink, '0'),
+  'text-on-danger': map.get($neutral, '0'),
   'danger-border': map.get($danger, '400'),
   'danger-bg': map.get($danger, '950'),
 
@@ -175,15 +161,12 @@ $semantic-dark: (
   'success-bg': map.get($success, '950'),
 
   // Focus
-  'focus-ring': map.get($iris, '400'),
+  'focus-ring': map.get($signal, '450'),
 
   // Overlay scrim
-  'overlay': rgba(#000, 0.62),
+  'overlay': rgba(#000, 0.6),
 
-  // Inverse surface flips to light so a tooltip stays high-contrast
-  'inverse-surface': map.get($bone, 'paper'),
-  'inverse-text': map.get($ink, '950'),
-
-  // Expressive accent
-  'gradient-accent': $gradient-accent,
+  // Inverse surface flips to light
+  'inverse-surface': map.get($neutral, '50'),
+  'inverse-text': map.get($neutral, '950'),
 );

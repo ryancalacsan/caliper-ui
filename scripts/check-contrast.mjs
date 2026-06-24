@@ -23,49 +23,41 @@ function ratio(fg, bg) {
   const [hi, lo] = a > b ? [a, b] : [b, a];
   return (hi + 0.05) / (lo + 0.05);
 }
-// Composite a translucent fg over an opaque bg (for tinted surfaces).
-function over(hex, alpha, bgHex) {
-  const h = hex.replace('#', '');
-  const b = bgHex.replace('#', '');
-  const mix = (i) => {
-    const f = parseInt(h.slice(i, i + 2), 16);
-    const k = parseInt(b.slice(i, i + 2), 16);
-    return Math.round(f * alpha + k * (1 - alpha));
-  };
-  const c = (n) => n.toString(16).padStart(2, '0');
-  return `#${c(mix(0))}${c(mix(2))}${c(mix(4))}`;
-}
 
+// Resolved semantic values, mirroring src/tokens/_colors.scss.
 const light = {
-  bg: '#f4f1ea',
-  surface: '#fffefb',
-  text: '#0a0d14',
-  'text-muted': '#444d63',
-  'text-subtle': '#5f6982',
-  primary: '#6244e0',
-  'text-on-primary': '#ffffff',
-  'accent-text': '#6244e0',
-  'border-strong': '#8089a0',
+  bg: '#f3f1ea',
+  surface: '#faf8f2',
+  text: '#16140f',
+  'text-muted': '#565144',
+  'text-subtle': '#6b6657',
+  primary: '#16140f',
+  'text-on-primary': '#fffdf7',
+  'accent-text': '#b83400',
+  signal: '#ff4d00',
+  'border-strong': '#322f26',
   'danger-solid': '#b91c1c',
   danger: '#b91c1c',
-  'primary-bg': '#f1effe',
+  'focus-ring': '#b83400',
 };
 const dark = {
-  bg: '#0a0d14',
-  surface: '#161b29',
-  text: '#f4f1ea',
-  'text-muted': '#a8b0c2',
-  'text-subtle': '#8089a0',
-  primary: '#8f7af4',
-  'text-on-primary': '#0a0d14',
-  'accent-text': '#ab9bf8',
-  'border-strong': '#8089a0',
+  bg: '#0f0d0a',
+  surface: '#17150f',
+  text: '#faf8f2',
+  'text-muted': '#c7c2b2',
+  'text-subtle': '#8b8678',
+  primary: '#faf8f2',
+  'text-on-primary': '#0f0d0a',
+  'accent-text': '#ff6a23',
+  signal: '#ff5a1a',
+  'border-strong': '#8b8678',
   'danger-solid': '#dc2626',
   danger: '#f87171',
+  'focus-ring': '#ff5a1a',
 };
 
-// [label, fg, bg, minimum]
-const checks = (t, isDark) => [
+// [label, fg, bg, minimum, optional:'info']
+const checks = (t) => [
   ['text on bg', t.text, t.bg, 4.5],
   ['text on surface', t.text, t.surface, 4.5],
   ['text-muted on surface', t['text-muted'], t.surface, 4.5],
@@ -73,33 +65,30 @@ const checks = (t, isDark) => [
   ['label on primary button', t['text-on-primary'], t.primary, 4.5],
   ['white on danger-solid', '#ffffff', t['danger-solid'], 4.5],
   ['danger text on surface', t.danger, t.surface, 4.5],
+  ['accent-text on surface', t['accent-text'], t.surface, 4.5],
   ['border-strong vs surface', t['border-strong'], t.surface, 3.0],
   ['primary fill vs bg (UI)', t.primary, t.bg, 3.0],
-  ['accent-text on surface', t['accent-text'], t.surface, 4.5],
-  isDark
-    ? [
-        'accent-text on iris tint',
-        t['accent-text'],
-        over('#8f7af4', 0.18, t.surface),
-        4.5,
-      ]
-    : ['accent-text on iris tint', t['accent-text'], light['primary-bg'], 4.5],
+  ['focus-ring vs bg (UI)', t['focus-ring'], t.bg, 3.0],
+  // Informational: the vivid signal is decorative (marks, crop frame), not
+  // essential text, so it is not gated - but worth seeing.
+  ['signal mark vs bg [info]', t.signal, t.bg, 0, 'info'],
 ];
 
 let failed = 0;
 for (const [name, rows] of [
-  ['LIGHT (editorial)', checks(light, false)],
-  ['DARK (noir)', checks(dark, true)],
+  ['LIGHT (paper)', checks(light)],
+  ['DARK (dev mode)', checks(dark)],
 ]) {
   console.log(`\n${name}`);
-  for (const [label, fg, bg, min] of rows) {
+  for (const [label, fg, bg, min, info] of rows) {
     const r = ratio(fg, bg);
-    const ok = r >= min;
+    const ok = info ? true : r >= min;
     if (!ok) failed++;
+    const tag = info ? 'INFO' : ok ? 'PASS' : 'FAIL';
     console.log(
-      `  ${ok ? 'PASS' : 'FAIL'}  ${r.toFixed(2)} (min ${min})  ${label}  ${fg} on ${bg}`,
+      `  ${tag}  ${r.toFixed(2)}${min ? ` (min ${min})` : ''}  ${label}  ${fg} on ${bg}`,
     );
   }
 }
-console.log(`\n${failed === 0 ? 'All pairings pass AA.' : `${failed} FAILED.`}`);
+console.log(`\n${failed === 0 ? 'All gated pairings pass AA.' : `${failed} FAILED.`}`);
 process.exit(failed === 0 ? 0 : 1);

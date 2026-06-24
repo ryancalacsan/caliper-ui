@@ -7,8 +7,11 @@
 // big display sizes against small letter-spaced labels is the editorial move.
 // =============================================================================
 
+// Technical pairing: a grotesque set big and tight for display and used for UI,
+// a monospace for the spec labels and code. No serif - the look is a drawing,
+// not an essay.
 $font-family: (
-  'display': ('Fraunces Variable', 'Iowan Old Style', georgia, 'Times New Roman', serif),
+  'display': ('Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif),
   'sans': ('Hanken Grotesk Variable', system-ui, -apple-system, 'Segoe UI', sans-serif),
   'mono': ('Geist Mono Variable', ui-monospace, 'SF Mono', menlo, monospace),
 );

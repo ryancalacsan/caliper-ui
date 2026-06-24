@@ -17,36 +17,35 @@ component holds a raw hex or pixel value.
 
 ## Color
 
-The palette is "Editorial Noir": mostly monochrome, with one expressive accent.
-Primitives are raw ramps — **ink** (cool near-black), **bone** (warm paper
-neutrals), **iris** (the blue-violet accent), plus danger and success. Components
-never use a primitive. They use the semantic roles below, chosen so every
-text-on-surface pairing clears WCAG 2.2 AA in both themes. The pairings are
-verified in CI-adjacent fashion by `npm run test:contrast`.
+The palette is "Spec Sheet": warm paper and ink, with one signal accent
+(construction orange). It is mostly an inversion model — the light theme is a
+paper spec sheet, the dark theme is a dev-mode terminal, and the same roles flip
+between them. Primitives are raw ramps — a warm **neutral** ramp (paper to ink),
+**signal** (orange), plus danger and success. Components never use a primitive.
+They use the semantic roles below, chosen so every text-on-surface pairing clears
+WCAG 2.2 AA in both themes, verified by `npm run test:contrast`.
 
 | Role | Custom property | Light → Dark | Min contrast |
 | --- | --- | --- | --- |
-| Text | `--color-text` | ink 950 → bone | 17.2:1 |
-| Muted text | `--color-text-muted` | ink 600 → ink 300 | 7.9:1 |
-| Subtle text | `--color-text-subtle` | ink 500 → ink 400 | 4.9:1 |
-| Primary fill | `--color-primary` | iris 600 → iris 400 | — |
-| Label on primary | `--color-text-on-primary` | white → ink 950 | 5.8:1 |
-| Accent text | `--color-accent-text` | iris 600 → iris 300 | 4.9:1 |
-| Danger text | `--color-danger` | danger 700 → danger 400 | 6.2:1 |
-| Danger button | `--color-danger-solid` | danger 700 → danger 600 | 4.8:1 |
-| Field border | `--color-border-strong` | ink 400 | 3.1:1 |
+| Text | `--color-text` | ink → paper | 16.3:1 |
+| Muted text | `--color-text-muted` | neutral 600 → 300 | 7.4:1 |
+| Subtle text | `--color-text-subtle` | neutral 500 → 400 | 5.0:1 |
+| Primary fill | `--color-primary` | ink → paper (inverts) | — |
+| Label on primary | `--color-text-on-primary` | paper → ink | 18.1:1 |
+| Accent text | `--color-accent-text` | signal 700 → 400 | 5.6:1 |
+| Signal (mark) | `--color-signal` | signal 500 → 450 | decorative |
+| Focus ring | `--color-focus-ring` | signal 700 → 450 | 5.3:1 |
+| Field border | `--color-border-strong` | neutral 700 → 400 | 3.0:1 |
 
 Two distinctions the system makes deliberately:
 
-- **`primary` (fill) vs `accent-text`.** On a dark surface a tint cannot be dark
-  enough for the iris fill color to clear AA as text, so accent text and links
-  use a lighter `accent-text` role while the button fill stays punchy.
+- **`signal` (mark) vs `accent-text`.** Bright signal orange is vivid but it does
+  not clear AA as text on light paper. So it is used for marks, the crop frame,
+  and decoration, while a darker burnt orange (`accent-text`) carries any orange
+  text, links, and the focus ring.
 - **`danger` (text) vs `danger-solid` (button).** Error text wants a light red on
   dark; a danger button wants a darker red so its white label passes. Same value
-  in light, different in dark.
-
-The signature accent is `--color-gradient-accent`, an iridescent blue-to-violet
-gradient used sparingly (a hero word, a focus glow), never behind body text.
+  in light, different in dark. Red stays clearly distinct from the orange signal.
 
 ### Theming
 
@@ -56,34 +55,28 @@ switches with no component changes. Use the theme switcher in the Storybook
 toolbar to flip every story, and watch the Accessibility panel to confirm the
 dark theme holds the same AA bar.
 
-- `[data-theme="dark"]` on the root opts in to dark.
-- `[data-theme="light"]` forces light, even under an OS dark setting.
+- `[data-theme="dark"]` on the root opts in to the dark dev-mode theme.
+- `[data-theme="light"]` forces the light paper theme, even under an OS dark
+  setting.
 - With no attribute set, `prefers-color-scheme` decides.
-
-Both themes clear AA. One split the dark theme made explicit: `--color-danger`
-is the text color (a light red on dark), while `--color-danger-solid` is the
-danger button background (a darker red so its white label passes). They are the
-same value in the light theme and diverge in the dark one.
 
 ## Typefaces
 
-An editorial pairing, self-hosted with Fontsource so there are no third-party
+A technical pairing, self-hosted with Fontsource so there are no third-party
 requests and no font-swap flash.
 
 | Family | Custom property | Used for |
 | --- | --- | --- |
-| Fraunces | `--font-display` | display headings, the serif voice |
-| Hanken Grotesk | `--font-sans` | UI and body |
-| Geist Mono | `--font-mono` | code, token names, uppercase micro-labels |
+| Hanken Grotesk | `--font-display`, `--font-sans` | display (big and tight) and UI |
+| Geist Mono | `--font-mono` | code, token names, and the spec labels |
 
-Headings adopt the serif at the base-element level, since in a design system the
-type ramp is part of the foundation rather than something each page re-invents.
+The look is a drawing, not an essay, so there is no serif. The grotesque carries
+both the big display headings and the body, and the mono carries every label.
 
 ## Type scale
 
 A 1.25 (major third) modular scale on a 1rem / 16px base, extended up top for
-display work. Big display sizes against small letter-spaced labels is the
-editorial move.
+display work. Big display sizes against small letter-spaced labels is the move.
 
 | Token | Custom property | Size |
 | --- | --- | --- |
@@ -99,9 +92,9 @@ editorial move.
 | 5xl | `--text-5xl` | 4rem / 64px |
 | 6xl | `--text-6xl` | 5.25rem / 84px |
 
-Weights run `--weight-regular` 400 through `--weight-black` 900 (Fraunces is
-variable, so the display face can push further). Line heights: `--leading-none` 1
-for display through `--leading-relaxed` 1.75. Tracking ranges from
+Weights run `--weight-regular` 400 through `--weight-black` 900 (Hanken Grotesk
+is variable, so the display can push heavy). Line heights: `--leading-none` 1 for
+display through `--leading-relaxed` 1.75. Tracking ranges from
 `--tracking-tightest` for big display to `--tracking-wider` for uppercase labels.
 
 ## Spacing
@@ -122,12 +115,14 @@ and rhythm stay even across components.
 
 ## Radii
 
+Tight, near-square corners. The Spec Sheet look is drawn with sharp edges.
+
 | Token | Custom property | Value | Used by |
 | --- | --- | --- | --- |
-| sm | `--radius-sm` | 0.25rem | inputs |
-| md | `--radius-md` | 0.5rem | buttons, cards |
-| lg | `--radius-lg` | 0.75rem | modals |
-| full | `--radius-full` | 9999px | pills, spinners |
+| sm | `--radius-sm` | 0.125rem / 2px | inputs, chips |
+| md | `--radius-md` | 0.125rem / 2px | buttons, cards |
+| lg | `--radius-lg` | 0.25rem / 4px | modals |
+| full | `--radius-full` | 9999px | round dots, spinners |
 
 ## Z-index
 

@@ -2,9 +2,8 @@
 // Imported once wherever the global stylesheet loads: the app entry, the
 // library entry, and the Storybook preview.
 //
-//   Fraunces        - editorial high-contrast serif, used for display headings
-//   Hanken Grotesk  - refined grotesque, the UI and body face
-//   Geist Mono      - monospace for code, token names, and micro-labels
-import '@fontsource-variable/fraunces';
+//   Hanken Grotesk  - the grotesque, set big and tight for display and used for
+//                     UI and body
+//   Geist Mono      - monospace for code, token names, and the spec labels
 import '@fontsource-variable/hanken-grotesk';
 import '@fontsource-variable/geist-mono';

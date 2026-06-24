@@ -21,9 +21,9 @@ body {
   font-feature-settings: 'ss01', 'cv01';
 }
 
-// Headings are the editorial voice: the Fraunces serif, pulled tight. Setting
-// these on the base elements is deliberate. In a design system the type ramp is
-// part of the foundation, not something each page re-invents.
+// Headings are the grotesque, set bold and pulled tight. Setting these on the
+// base elements is deliberate. In a design system the type ramp is part of the
+// foundation, not something each page re-invents.
 h1,
 h2,
 h3,
@@ -31,11 +31,10 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text);
-  font-optical-sizing: auto;
 }
 
 code,
@@ -46,7 +45,7 @@ pre {
   font-size: 0.9em;
 }
 
-// Selection picks up the accent, a small signature touch.
+// Selection inverts to ink/paper, high contrast in either theme.
 ::selection {
   background-color: var(--color-primary);
   color: var(--color-text-on-primary);

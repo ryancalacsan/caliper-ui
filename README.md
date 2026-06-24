@@ -4,7 +4,7 @@
 
 **[Live demo](https://bespoke-css.vercel.app)** · **[Component docs (Storybook)](https://bespoke-css.vercel.app/storybook/)**
 
-![The Bespoke demo landing page in its dark Noir theme: a large Fraunces serif headline reading "Interfaces, composed with intent" with the word intent in an iridescent gradient, over a near-black canvas.](.github/assets/hero.png)
+![The Bespoke demo landing, drawn as a technical spec sheet on warm paper: a ruler rail, a crop-mark frame, and a big grotesque headline reading "A component system, drawn to spec." dimensioned like an engineering drawing with crosshair marks and a width annotation, in ink with one construction-orange accent.](.github/assets/hero.png)
 
 A small, accessible React component library built to show design-system craft:
 hand-written SCSS with BEM, one source of truth for design tokens, and
@@ -70,20 +70,23 @@ number. A token is defined once and reaches the rest of the system two ways:
 Edit one line in `src/tokens/`, and both paths update together.
 
 **Color roles, not raw colors.** The palette has two levels. Primitives are the
-raw ramps — `ink` (cool near-black), `bone` (warm paper), `iris` (the blue-violet
-accent), plus danger and success. Semantic roles (`text`, `primary`, `danger`,
+raw ramps — a warm `neutral` ramp (paper to ink), `signal` (construction orange),
+plus danger and success. Semantic roles (`text`, `primary`, `danger`,
 `border-strong`) are what components actually use. Every text-on-surface pairing
 is chosen to meet WCAG 2.2 AA, and the pairings are verified by a script rather
 than by eye (`npm run test:contrast`). That script earned its keep: it forced two
-honest splits the eye would have missed — `primary` (the fill) from `accent-text`
-(links and text on a tint, which a tint can never make dark enough to clear AA in
-the dark theme), and `danger` (light red text) from `danger-solid` (the darker
-red a button needs behind a white label).
+honest splits the eye would have missed — `signal` (the vivid mark color, which
+cannot clear AA as text on light paper) from `accent-text` (a darker burnt orange
+that carries any orange text, links, and the focus ring), and `danger` from
+`danger-solid` (a darker red so a danger button's white label still passes).
 
-**An editorial aesthetic.** The look is "Editorial Noir": a high-contrast serif
-(Fraunces) for display, a refined grotesque (Hanken Grotesk) for UI, a monospace
-(Geist Mono) for the small uppercase labels, all self-hosted via Fontsource. The
-color is mostly monochrome with one iridescent accent gradient used sparingly.
+**A technical aesthetic.** The look is "Spec Sheet": the system is drawn like an
+engineering document — a blueprint grid, a crop-mark frame, crosshair
+registration marks, dimension annotations, and mono spec labels. A grotesque
+(Hanken Grotesk) set big and tight for display and used for UI, a monospace
+(Geist Mono) for the labels, both self-hosted via Fontsource. Warm paper and ink,
+near-square corners, with one construction-orange signal. It is an inversion
+model: the light theme is a paper spec sheet, the dark theme a dev-mode terminal.
 None of this lives in component logic — it is the token layer, so it could be
 re-skinned again the same way the dark theme was added.
 
