@@ -1,5 +1,15 @@
 # @ryancalacsan/caliper-ui
 
+## 0.4.0
+
+### Minor Changes
+
+- 874334d: Add content and data-display components: `Card` (bordered surface with
+  media/header/body/footer regions), `Badge` (outline pill), `Stat` (spec
+  readout), `Callout` (bordered note), `AspectRatio`, and an `Icon` convention
+  wrapper that depends on no icon library. Extend `Button` with `asChild` (render
+  the styling onto a link or framework `<Link>` via prop merging) and `iconOnly`.
+
 ## 0.3.0
 
 ### Minor Changes
