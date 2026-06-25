@@ -93,6 +93,11 @@
   @each $name, $value in tokens.$easing {
     --ease-#{$name}: #{$value};
   }
+
+  // --- Spec Sheet motif dimensions -------------------------------------------
+  @each $name, $value in tokens.$motif {
+    --motif-#{$name}: #{$value};
+  }
 }
 
 [data-theme='light'] {

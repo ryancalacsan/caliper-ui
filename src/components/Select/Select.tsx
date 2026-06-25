@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import { useTypeahead } from './useTypeahead';

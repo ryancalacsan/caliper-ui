@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { KeyboardEvent, ReactNode } from 'react';
 import './Tabs.scss';

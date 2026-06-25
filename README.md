@@ -12,6 +12,73 @@ accessibility wired in from the first line rather than bolted on at the end.
 
 It is meant to be read as much as run.
 
+## Install
+
+```bash
+npm install @ryancalacsan/bespoke-css
+```
+
+React 18 or newer is a peer dependency (your app provides it). The package ships
+ESM with types and is safe to use in React Server Components.
+
+## Usage
+
+Import the stylesheet once at your app root, then use the components:
+
+```tsx
+import '@ryancalacsan/bespoke-css/styles.css';
+import { Button } from '@ryancalacsan/bespoke-css';
+
+export function Example() {
+  return <Button onClick={() => alert('hi')}>Save changes</Button>;
+}
+```
+
+Themes switch by a `data-theme` attribute on `<html>` (`"light"` or `"dark"`);
+with no attribute set, the OS `prefers-color-scheme` decides. Want only the
+tokens (the CSS custom properties), without component styles? Import
+`@ryancalacsan/bespoke-css/tokens.css` instead.
+
+### Next.js App Router
+
+The styling is global CSS, so import it once in the root layout. Interactive
+components (`Modal`, `Select`, `Tabs`, `Tooltip`, `Checkbox`, `RadioGroup`,
+`TextField`) are marked `"use client"`; `Button` renders on the server.
+
+```tsx
+// app/layout.tsx
+import '@ryancalacsan/bespoke-css/styles.css';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" data-theme="light">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+To set the theme from the user's choice with no flash on first paint, set
+`data-theme` before React hydrates with a tiny inline script in `<head>`:
+
+```tsx
+<head>
+  <script
+    dangerouslySetInnerHTML={{
+      __html:
+        "try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}",
+    }}
+  />
+</head>
+```
+
+A consumer can override any token by redefining its custom property (for example
+`:root { --color-signal: #2347ff; }`) after the import.
+
 ## What is here
 
 - **React + TypeScript**, built with Vite.

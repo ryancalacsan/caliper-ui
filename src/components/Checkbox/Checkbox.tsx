@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useId, useRef } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import './Checkbox.scss';

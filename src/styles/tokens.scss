@@ -1,0 +1,5 @@
+// Tokens-only entry. Emits the design tokens as CSS custom properties for both
+// themes, with no reset and no component styles. Compiled to lib/tokens.css so a
+// consumer can pull in just the token layer (for example to theme their own
+// markup) without the rest of the library's CSS.
+@use 'root';

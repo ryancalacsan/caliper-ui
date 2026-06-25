@@ -34,3 +34,6 @@ storybook-static
 
 # Vercel
 .vercel
+
+# Library build output
+/lib

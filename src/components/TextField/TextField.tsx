@@ -1,3 +1,5 @@
+'use client';
+
 import { useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import './TextField.scss';

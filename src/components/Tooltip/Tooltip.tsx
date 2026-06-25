@@ -1,3 +1,5 @@
+'use client';
+
 import { cloneElement, useId, useRef, useState } from 'react';
 import type {
   FocusEvent,

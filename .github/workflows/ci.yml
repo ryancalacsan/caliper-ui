@@ -29,6 +29,7 @@ jobs:
       - run: npm run typecheck
       - run: npm run test:contrast
       - run: npm run build
+      - run: npm run build:lib
 
   interaction:
     name: Interaction tests

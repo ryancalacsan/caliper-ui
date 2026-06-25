@@ -120,6 +120,12 @@ $semantic: (
   // Inverse surface for tooltips (ink on light)
   'inverse-surface': map.get($neutral, '900'),
   'inverse-text': map.get($neutral, '50'),
+
+  // Spec Sheet motif colors (named so a consumer can repoint them on their own,
+  // independent of the borders they happen to share a value with).
+  'grid-line': map.get($neutral, '200'),
+  'rule': map.get($neutral, '700'),
+  'mark': map.get($signal, '500'),
 );
 
 // --- Semantic roles: dev mode (dark) ----------------------------------------
@@ -175,4 +181,9 @@ $semantic-dark: (
   // Inverse surface flips to light
   'inverse-surface': map.get($neutral, '50'),
   'inverse-text': map.get($neutral, '950'),
+
+  // Spec Sheet motif colors
+  'grid-line': map.get($neutral, '700'),
+  'rule': map.get($neutral, '400'),
+  'mark': map.get($signal, '450'),
 );
