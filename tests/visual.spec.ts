@@ -20,6 +20,9 @@ const stories = [
   { id: 'layout-stack--default', name: 'layout-stack' },
   { id: 'layout-grid--fixed-columns', name: 'layout-grid' },
   { id: 'layout-divider--vertical', name: 'layout-divider' },
+  // Typography
+  { id: 'typography-heading--scale', name: 'typography-heading' },
+  { id: 'typography-prose--default', name: 'typography-prose' },
 ];
 
 const themes = ['light', 'dark'] as const;

@@ -1,0 +1,69 @@
+// =============================================================================
+// Text
+// -----------------------------------------------------------------------------
+// Body text. .text is the block; --{size} sets the scale, --muted/--subtle the
+// color, --{weight} the weight, --align-* the alignment.
+// =============================================================================
+
+.text {
+  margin: 0;
+  font-family: var(--font-sans);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+
+  &--xs {
+    font-size: var(--text-xs);
+  }
+
+  &--sm {
+    font-size: var(--text-sm);
+  }
+
+  &--base {
+    font-size: var(--text-base);
+  }
+
+  &--md {
+    font-size: var(--text-md);
+  }
+
+  &--lg {
+    font-size: var(--text-lg);
+  }
+
+  &--muted {
+    color: var(--color-text-muted);
+  }
+
+  &--subtle {
+    color: var(--color-text-subtle);
+  }
+
+  &--regular {
+    font-weight: var(--weight-regular);
+  }
+
+  &--medium {
+    font-weight: var(--weight-medium);
+  }
+
+  &--semibold {
+    font-weight: var(--weight-semibold);
+  }
+
+  &--bold {
+    font-weight: var(--weight-bold);
+  }
+
+  &--align-start {
+    text-align: start;
+  }
+
+  &--align-center {
+    text-align: center;
+  }
+
+  &--align-end {
+    text-align: end;
+  }
+}

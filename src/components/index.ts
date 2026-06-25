@@ -50,3 +50,27 @@ export { Divider } from './Divider';
 export type { DividerProps, DividerOrientation, DividerTone } from './Divider';
 
 export type { SpaceToken, Align, Justify } from './layout.types';
+
+// Typography
+export { Heading } from './Heading';
+export type {
+  HeadingProps,
+  HeadingLevel,
+  HeadingSize,
+  HeadingWeight,
+} from './Heading';
+
+export { Eyebrow } from './Eyebrow';
+export type { EyebrowProps, EyebrowTone } from './Eyebrow';
+
+export { Text } from './Text';
+export type {
+  TextProps,
+  TextSize,
+  TextTone,
+  TextWeight,
+  TextAlign,
+} from './Text';
+
+export { Prose } from './Prose';
+export type { ProseProps, ProseSize } from './Prose';
