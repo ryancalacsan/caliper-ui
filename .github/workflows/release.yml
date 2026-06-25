@@ -19,9 +19,22 @@ jobs:
     name: Version or publish
     runs-on: ubuntu-latest
     steps:
+      # Mint a short-lived GitHub App token so the "Version Packages" PR is
+      # opened by the app, not the Actions bot. PRs opened with the default
+      # GITHUB_TOKEN don't trigger CI (GitHub's recursion guard); an app token
+      # does, so releases stay fully hands-off. No long-lived secret is stored -
+      # only the app's id and private key, exchanged for a token per run.
+      - name: Mint a GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -32,11 +45,12 @@ jobs:
 
       # When changesets are present, opens/updates a "Version Packages" PR.
       # When a version bump has landed, publishes to npm via Trusted Publishing
-      # (OIDC), with provenance. No tokens involved.
+      # (OIDC), with provenance. The npm publish needs no token; the app token is
+      # only for the PR/push.
       - name: Create release PR or publish
         uses: changesets/action@v1
         with:
           publish: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_CONFIG_PROVENANCE: true
