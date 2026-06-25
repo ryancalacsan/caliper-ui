@@ -1,0 +1,47 @@
+// =============================================================================
+// Crosshair
+// -----------------------------------------------------------------------------
+// A registration `+` mark in the signal color. .crosshair is the block; --{size}
+// sets the box. The two strokes are drawn with ::before / ::after.
+// =============================================================================
+
+.crosshair {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  inline-size: var(--motif-mark-size);
+  block-size: var(--motif-mark-size);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: var(--color-mark);
+  }
+
+  // Vertical stroke.
+  &::before {
+    inset-block: 0;
+    inset-inline-start: 50%;
+    inline-size: var(--motif-rule-width);
+    transform: translateX(-50%);
+  }
+
+  // Horizontal stroke.
+  &::after {
+    inset-inline: 0;
+    inset-block-start: 50%;
+    block-size: var(--motif-rule-width);
+    transform: translateY(-50%);
+  }
+
+  &--sm {
+    inline-size: 10px;
+    block-size: 10px;
+  }
+
+  &--lg {
+    inline-size: 22px;
+    block-size: 22px;
+  }
+}

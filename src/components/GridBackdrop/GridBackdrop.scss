@@ -1,0 +1,22 @@
+// =============================================================================
+// GridBackdrop
+// -----------------------------------------------------------------------------
+// The blueprint grid, painted as a background. .grid-backdrop is the block;
+// --grid / --grid-fine set the cell size. Content renders on top.
+// =============================================================================
+
+.grid-backdrop {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  background-position: -1px -1px;
+
+  &--grid {
+    background-size: var(--motif-grid) var(--motif-grid);
+  }
+
+  &--grid-fine {
+    background-size: var(--motif-grid-fine) var(--motif-grid-fine);
+  }
+}

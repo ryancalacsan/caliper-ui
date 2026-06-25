@@ -28,6 +28,12 @@ const stories = [
   { id: 'content-callout--tones', name: 'content-callout' },
   { id: 'content-badge--tones', name: 'content-badge' },
   { id: 'content-stat--strip', name: 'content-stat' },
+  // Spec Sheet motifs
+  { id: 'motifs-crosshair--sizes', name: 'motifs-crosshair' },
+  { id: 'motifs-frame--default', name: 'motifs-frame' },
+  { id: 'motifs-gridbackdrop--default', name: 'motifs-gridbackdrop' },
+  { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
+  { id: 'motifs-dimensionline--horizontal', name: 'motifs-dimensionline' },
 ];
 
 const themes = ['light', 'dark'] as const;

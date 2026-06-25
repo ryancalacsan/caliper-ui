@@ -93,3 +93,19 @@ export type { CalloutProps, CalloutTone } from './Callout';
 
 export { AspectRatio } from './AspectRatio';
 export type { AspectRatioProps } from './AspectRatio';
+
+// Spec Sheet motifs
+export { Frame } from './Frame';
+export type { FrameProps } from './Frame';
+
+export { GridBackdrop } from './GridBackdrop';
+export type { GridBackdropProps, GridBackdropSize } from './GridBackdrop';
+
+export { Crosshair } from './Crosshair';
+export type { CrosshairProps, CrosshairSize } from './Crosshair';
+
+export { DimensionLine } from './DimensionLine';
+export type { DimensionLineProps, DimensionOrientation } from './DimensionLine';
+
+export { SheetHeader } from './SheetHeader';
+export type { SheetHeaderProps } from './SheetHeader';

@@ -1,0 +1,36 @@
+// =============================================================================
+// Frame
+// -----------------------------------------------------------------------------
+// A bordered box with signal registration corners (top-left and bottom-right),
+// drawn with ::before / ::after. The outer shell of the Spec Sheet look.
+// =============================================================================
+
+.frame {
+  position: relative;
+  border: var(--motif-rule-width) solid var(--color-text);
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    inline-size: var(--motif-mark-size);
+    block-size: var(--motif-mark-size);
+    border: var(--motif-rule-width) solid var(--color-mark);
+  }
+
+  // Top-left corner.
+  &::before {
+    inset-block-start: calc(var(--motif-rule-width) * -1);
+    inset-inline-start: calc(var(--motif-rule-width) * -1);
+    border-inline-end: 0;
+    border-block-end: 0;
+  }
+
+  // Bottom-right corner.
+  &::after {
+    inset-block-end: calc(var(--motif-rule-width) * -1);
+    inset-inline-end: calc(var(--motif-rule-width) * -1);
+    border-inline-start: 0;
+    border-block-start: 0;
+  }
+}

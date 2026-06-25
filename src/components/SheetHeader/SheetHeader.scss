@@ -1,0 +1,41 @@
+// =============================================================================
+// SheetHeader
+// -----------------------------------------------------------------------------
+// The Spec Sheet meta bar. .sheet-header is the block; __cell holds left/right
+// content, __ruler is the tick strip between them. A divider is drawn before
+// every section after the first, so it sits between adjacent sections only -
+// never on a lone cell's outer edge.
+// =============================================================================
+
+.sheet-header {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  border-block-end: var(--motif-rule-width) solid var(--color-text);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+
+  > * + * {
+    border-inline-start: var(--motif-rule-width) solid var(--color-text);
+  }
+}
+
+.sheet-header__cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);
+}
+
+.sheet-header__ruler {
+  flex: 1;
+  background-image: linear-gradient(
+    90deg,
+    var(--color-grid-line) 1px,
+    transparent 1px
+  );
+  background-size: 1rem 100%;
+}
