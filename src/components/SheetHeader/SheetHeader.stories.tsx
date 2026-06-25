@@ -39,3 +39,12 @@ export const Default: Story = {
     await expect(canvas.getByText('Sheet 01 / 04')).toBeInTheDocument();
   },
 };
+
+/** A single cell renders with no stray divider on its outer edges. */
+export const BrandOnly: Story = {
+  args: { left: 'Caliper', right: undefined, ruler: false },
+  play: async ({ canvasElement }) => {
+    const cells = canvasElement.querySelectorAll('.sheet-header__cell');
+    await expect(cells).toHaveLength(1);
+  },
+};

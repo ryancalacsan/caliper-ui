@@ -29,6 +29,7 @@ const stories = [
   { id: 'content-badge--tones', name: 'content-badge' },
   { id: 'content-stat--strip', name: 'content-stat' },
   // Spec Sheet motifs
+  { id: 'motifs-crosshair--sizes', name: 'motifs-crosshair' },
   { id: 'motifs-frame--default', name: 'motifs-frame' },
   { id: 'motifs-gridbackdrop--default', name: 'motifs-gridbackdrop' },
   { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
