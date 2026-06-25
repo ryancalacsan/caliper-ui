@@ -1,0 +1,22 @@
+// =============================================================================
+// Inline
+// -----------------------------------------------------------------------------
+// Horizontal flex layout that wraps by default. .inline is the block; --gap-*,
+// --align-*, --justify-*, and --nowrap are modifiers.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.inline {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+
+  @include mix.gap-modifiers;
+  @include mix.align-modifiers;
+  @include mix.justify-modifiers;
+
+  &--nowrap {
+    flex-wrap: nowrap;
+  }
+}

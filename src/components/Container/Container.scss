@@ -1,0 +1,36 @@
+// =============================================================================
+// Container
+// -----------------------------------------------------------------------------
+// A centered max-width column. .container is the block; --sm/md/lg/xl/full set
+// the max width, --flush removes the horizontal gutter.
+// =============================================================================
+
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-lg);
+
+  &--sm {
+    max-width: 40rem;
+  }
+
+  &--md {
+    max-width: 48rem;
+  }
+
+  &--lg {
+    max-width: 64rem;
+  }
+
+  &--xl {
+    max-width: 80rem;
+  }
+
+  &--full {
+    max-width: none;
+  }
+
+  &--flush {
+    padding-inline: 0;
+  }
+}

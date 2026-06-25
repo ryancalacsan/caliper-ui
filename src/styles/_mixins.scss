@@ -87,3 +87,59 @@
     transition-timing-function: fn.easing('standard');
   }
 }
+
+// Layout helpers for the spacing-aware primitives (Stack, Inline, Grid). Emit
+// `&--gap-*` modifier classes off the spacing scale, plus align/justify
+// modifiers that translate the friendly prop values to flexbox keywords. Call
+// from inside the block selector.
+@mixin gap-modifiers {
+  @each $name, $value in tokens.$spacing {
+    &--gap-#{$name} {
+      gap: var(--space-#{$name});
+    }
+  }
+}
+
+@mixin align-modifiers {
+  &--align-start {
+    align-items: flex-start;
+  }
+
+  &--align-center {
+    align-items: center;
+  }
+
+  &--align-end {
+    align-items: flex-end;
+  }
+
+  &--align-stretch {
+    align-items: stretch;
+  }
+
+  &--align-baseline {
+    align-items: baseline;
+  }
+}
+
+@mixin justify-modifiers {
+  &--justify-start {
+    justify-content: flex-start;
+  }
+
+  &--justify-center {
+    justify-content: center;
+  }
+
+  &--justify-end {
+    justify-content: flex-end;
+  }
+
+  &--justify-between {
+    justify-content: space-between;
+  }
+
+  &--justify-around {
+    justify-content: space-around;
+  }
+}

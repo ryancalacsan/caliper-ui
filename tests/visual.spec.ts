@@ -16,6 +16,10 @@ const stories = [
   { id: 'components-select--with-selected-value', name: 'select-value' },
   { id: 'components-tabs--default', name: 'tabs-default' },
   { id: 'components-tooltip--placements', name: 'tooltip-placements' },
+  // Layout primitives
+  { id: 'layout-stack--default', name: 'layout-stack' },
+  { id: 'layout-grid--fixed-columns', name: 'layout-grid' },
+  { id: 'layout-divider--vertical', name: 'layout-divider' },
 ];
 
 const themes = ['light', 'dark'] as const;

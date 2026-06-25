@@ -1,0 +1,24 @@
+// =============================================================================
+// Spacer
+// -----------------------------------------------------------------------------
+// A decorative spacing element. .spacer is the block; --block-* sets vertical
+// space, --inline-* sets horizontal space, both off the spacing scale.
+// =============================================================================
+
+@use '../../tokens' as tokens;
+
+.spacer {
+  display: block;
+  flex: none;
+
+  @each $name, $value in tokens.$spacing {
+    &--block-#{$name} {
+      block-size: var(--space-#{$name});
+    }
+
+    &--inline-#{$name} {
+      display: inline-block;
+      inline-size: var(--space-#{$name});
+    }
+  }
+}

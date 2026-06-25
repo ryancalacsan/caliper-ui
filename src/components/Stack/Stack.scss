@@ -1,0 +1,17 @@
+// =============================================================================
+// Stack
+// -----------------------------------------------------------------------------
+// Vertical flex layout. .stack is the block; --gap-*, --align-*, --justify-*
+// are modifiers generated off the spacing scale and flexbox keywords.
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.stack {
+  display: flex;
+  flex-direction: column;
+
+  @include mix.gap-modifiers;
+  @include mix.align-modifiers;
+  @include mix.justify-modifiers;
+}

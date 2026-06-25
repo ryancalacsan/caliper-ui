@@ -1,0 +1,25 @@
+// =============================================================================
+// Grid
+// -----------------------------------------------------------------------------
+// CSS grid layout. .grid is the block; --gap-* sets the gap, --fixed uses a set
+// column count (--grid-columns), --auto fits responsive columns (--grid-min).
+// =============================================================================
+
+@use '../../styles/mixins' as mix;
+
+.grid {
+  display: grid;
+
+  @include mix.gap-modifiers;
+
+  &--fixed {
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  }
+
+  &--auto {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(min(var(--grid-min, 16rem), 100%), 1fr)
+    );
+  }
+}

@@ -1,0 +1,16 @@
+// =============================================================================
+// Section
+// -----------------------------------------------------------------------------
+// A landmark region with vertical padding. .section is the block; --space-*
+// sets the block padding off the spacing scale.
+// =============================================================================
+
+@use '../../tokens' as tokens;
+
+.section {
+  @each $name, $value in tokens.$spacing {
+    &--space-#{$name} {
+      padding-block: var(--space-#{$name});
+    }
+  }
+}

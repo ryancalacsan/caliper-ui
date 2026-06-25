@@ -1,0 +1,27 @@
+// =============================================================================
+// Divider
+// -----------------------------------------------------------------------------
+// A separator rule. .divider is the block; --horizontal/--vertical set the
+// axis, --subtle/--strong set the line color (border vs the Spec Sheet rule).
+// =============================================================================
+
+.divider {
+  border: 0;
+  margin: 0;
+  background-color: var(--color-border);
+
+  &--strong {
+    background-color: var(--color-rule);
+  }
+
+  &--horizontal {
+    inline-size: 100%;
+    block-size: 1px;
+  }
+
+  &--vertical {
+    align-self: stretch;
+    inline-size: 1px;
+    min-block-size: 1em;
+  }
+}
