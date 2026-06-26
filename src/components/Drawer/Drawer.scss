@@ -38,7 +38,8 @@
 
   &--left {
     margin-inline: 0 auto;
-    border-inline: 0 var(--motif-rule-width) solid var(--color-text);
+    border-inline-start: 0;
+    border-inline-end: var(--motif-rule-width) solid var(--color-text);
 
     @include mix.motion-safe {
       animation-name: drawer-in-left;

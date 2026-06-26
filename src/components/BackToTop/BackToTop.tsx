@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 import './BackToTop.scss';
 
@@ -28,6 +28,7 @@ export function BackToTop({
   ...rest
 }: BackToTopProps) {
   const [visible, setVisible] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > threshold);
@@ -35,6 +36,14 @@ export function BackToTop({
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [threshold]);
+
+  // If the button is hidden while it holds focus, move focus off it so it never
+  // becomes an aria-hidden element with focus.
+  useEffect(() => {
+    if (!visible && document.activeElement === buttonRef.current) {
+      buttonRef.current?.blur();
+    }
+  }, [visible]);
 
   function toTop() {
     const reduce = window.matchMedia(
@@ -49,6 +58,7 @@ export function BackToTop({
 
   return (
     <button
+      ref={buttonRef}
       type="button"
       className={classes}
       aria-label={label}
