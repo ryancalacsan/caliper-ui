@@ -128,7 +128,7 @@ it, while footer actions stay clickable:
   interactive
   header={
     <Heading level={3}>
-      <Link stretch href={p.href}>
+      <Link stretch tone="inherit" underline="none" href={p.href}>
         {p.title}
       </Link>
     </Heading>

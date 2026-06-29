@@ -165,7 +165,7 @@ export const Interactive: Story = {
         interactive
         header={
           <Heading level={3} size="lg">
-            <Link stretch underline="hover" href="#case-study">
+            <Link stretch tone="inherit" underline="none" href="#case-study">
               Caliper UI
             </Link>
           </Heading>

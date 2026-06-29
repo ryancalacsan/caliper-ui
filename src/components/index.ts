@@ -127,7 +127,7 @@ export { NavLink } from './NavLink';
 export type { NavLinkProps } from './NavLink';
 
 export { Link } from './Link';
-export type { LinkProps, LinkUnderline } from './Link';
+export type { LinkProps, LinkUnderline, LinkTone } from './Link';
 
 export { Drawer } from './Drawer';
 export type { DrawerProps, DrawerSide } from './Drawer';

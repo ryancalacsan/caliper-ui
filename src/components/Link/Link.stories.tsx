@@ -16,9 +16,18 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-  args: { href: '#', underline: 'always', children: 'design tokens' },
+  args: {
+    href: '#',
+    underline: 'always',
+    tone: 'accent',
+    children: 'design tokens',
+  },
   argTypes: {
-    underline: { control: 'inline-radio', options: ['always', 'hover'] },
+    underline: {
+      control: 'inline-radio',
+      options: ['always', 'hover', 'none'],
+    },
+    tone: { control: 'inline-radio', options: ['accent', 'inherit'] },
     children: { control: 'text' },
   },
 } satisfies Meta<typeof Link>;
@@ -32,6 +41,31 @@ export const Default: Story = {
       Built on <Link {...args} />, with two themes.
     </p>
   ),
+};
+
+/**
+ * `tone="inherit"` + `underline="none"` renders the link plain - it takes the
+ * surrounding color with no underline, for a structural link like a card title.
+ */
+export const Plain: Story = {
+  args: { tone: 'inherit', underline: 'none' },
+  render: (args) => (
+    <p
+      style={{
+        margin: 0,
+        fontFamily: 'var(--font-display)',
+        fontSize: 'var(--text-xl)',
+        fontWeight: 'var(--weight-bold)',
+      }}
+    >
+      <Link {...args}>A project title that is a link</Link>
+    </p>
+  ),
+  play: async ({ canvasElement }) => {
+    const link = within(canvasElement).getByRole('link');
+    await expect(link).toHaveClass('link--inherit');
+    await expect(link).toHaveClass('link--none');
+  },
 };
 
 /** `asChild` applies the styling to a custom element (here a plain anchor). */

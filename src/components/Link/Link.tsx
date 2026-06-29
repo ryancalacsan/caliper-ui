@@ -3,11 +3,14 @@ import type { ComponentPropsWithoutRef, ReactElement, ReactNode } from 'react';
 import { mergeProps } from '../mergeProps';
 import './Link.scss';
 
-export type LinkUnderline = 'always' | 'hover';
+export type LinkUnderline = 'always' | 'hover' | 'none';
+export type LinkTone = 'accent' | 'inherit';
 
 export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
   /** Underline treatment. Defaults to `always`. */
   underline?: LinkUnderline;
+  /** Text color. `inherit` renders plain (the surrounding color). Defaults to `accent`. */
+  tone?: LinkTone;
   /**
    * Render as the single child element instead of an `<a>` - for framework
    * `<Link>`s. The link styling merges onto the child.
@@ -22,12 +25,14 @@ export interface LinkProps extends ComponentPropsWithoutRef<'a'> {
 }
 
 /**
- * A text link in the accent color, with a clear focus ring. `asChild` hands the
- * styling to a framework `<Link>` while keeping the look; `stretch` makes it the
- * click target for a surrounding interactive card.
+ * A text link with a clear focus ring. Accent and underlined by default; set
+ * `tone="inherit"` and `underline="none"` to render plain (for a structural
+ * link, like a card title). `asChild` hands the styling to a framework `<Link>`;
+ * `stretch` makes it the click target for a surrounding interactive card.
  */
 export function Link({
   underline = 'always',
+  tone = 'accent',
   asChild = false,
   stretch = false,
   className,
@@ -36,6 +41,7 @@ export function Link({
 }: LinkProps) {
   const classes = [
     'link',
+    `link--${tone}`,
     `link--${underline}`,
     stretch && 'link--stretch',
     className,
