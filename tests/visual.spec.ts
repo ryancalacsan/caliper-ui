@@ -37,6 +37,7 @@ const stories = [
   { id: 'motifs-crosshair--sizes', name: 'motifs-crosshair' },
   { id: 'motifs-frame--default', name: 'motifs-frame' },
   { id: 'motifs-gridbackdrop--default', name: 'motifs-gridbackdrop' },
+  { id: 'motifs-gridbackdrop--variants', name: 'motifs-gridbackdrop-variants' },
   { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
   { id: 'motifs-dimensionline--horizontal', name: 'motifs-dimensionline' },
   { id: 'motifs-measureframe--default', name: 'motifs-measureframe' },

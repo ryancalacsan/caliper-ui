@@ -2,15 +2,27 @@
 // GridBackdrop
 // -----------------------------------------------------------------------------
 // The blueprint grid, painted as a background. .grid-backdrop is the block;
-// --grid / --grid-fine set the cell size. Content renders on top.
+// --lines / --dots set the pattern, --grid / --grid-fine set the cell size.
+// Both patterns share the same rhythm and grid-line color, so they flip per
+// theme. Content renders on top.
 // =============================================================================
 
 .grid-backdrop {
   background-color: var(--color-bg);
-  background-image:
-    linear-gradient(var(--color-grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
   background-position: -1px -1px;
+
+  &--lines {
+    background-image:
+      linear-gradient(var(--color-grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-grid-line) 1px, transparent 1px);
+  }
+
+  &--dots {
+    background-image: radial-gradient(
+      var(--color-grid-line) var(--motif-dot-radius),
+      transparent var(--motif-dot-radius)
+    );
+  }
 
   &--grid {
     background-size: var(--motif-grid) var(--motif-grid);

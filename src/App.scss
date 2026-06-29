@@ -10,15 +10,9 @@
 @use 'styles/mixins' as mix;
 
 .spec {
+  // The blueprint line grid + page background come from the GridBackdrop
+  // component this renders as (variant="lines" size="grid").
   min-height: 100vh;
-  background-color: var(--color-bg);
-
-  // Blueprint grid.
-  background-image:
-    linear-gradient(var(--color-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-border) 1px, transparent 1px);
-  background-size: 2rem 2rem;
-  background-position: -1px -1px;
   color: var(--color-text);
 
   // --- Crop-mark frame ------------------------------------------------------
@@ -265,19 +259,14 @@
   }
 
   &__stage {
+    // The dotted staging grid comes from the GridBackdrop component this
+    // renders as (variant="dots" size="grid-fine").
     position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-2xl);
-
-    // A finer dotted grid inside the staging area.
-    background-image: radial-gradient(
-      var(--color-border) 1px,
-      transparent 1px
-    );
-    background-size: 1.125rem 1.125rem;
 
     @include mix.media-down('md') {
       padding: var(--space-lg);

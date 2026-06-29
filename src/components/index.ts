@@ -105,7 +105,11 @@ export { Frame } from './Frame';
 export type { FrameProps, FrameVariant, FrameMarks } from './Frame';
 
 export { GridBackdrop } from './GridBackdrop';
-export type { GridBackdropProps, GridBackdropSize } from './GridBackdrop';
+export type {
+  GridBackdropProps,
+  GridBackdropSize,
+  GridBackdropVariant,
+} from './GridBackdrop';
 
 export { Crosshair } from './Crosshair';
 export type { CrosshairProps, CrosshairSize } from './Crosshair';
