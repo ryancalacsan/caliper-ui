@@ -45,6 +45,7 @@ const stories = [
   { id: 'chrome-appheader--default', name: 'chrome-appheader' },
   { id: 'chrome-navlink--nav', name: 'chrome-navlink' },
   { id: 'chrome-link--default', name: 'chrome-link' },
+  { id: 'chrome-link--plain', name: 'chrome-link-plain' },
 ];
 
 const themes = ['light', 'dark'] as const;

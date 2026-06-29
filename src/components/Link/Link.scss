@@ -1,14 +1,13 @@
 // =============================================================================
 // Link
 // -----------------------------------------------------------------------------
-// A text link in the accent color. .link is the block; --always / --hover set
-// when the underline shows.
+// A text link. .link is the block; --accent / --inherit set the color, and
+// --always / --hover / --none set when the underline shows.
 // =============================================================================
 
 @use '../../styles/mixins' as mix;
 
 .link {
-  color: var(--color-accent-text);
   text-underline-offset: 0.15em;
   border-radius: var(--radius-sm);
 
@@ -16,6 +15,14 @@
 
   &:hover {
     text-decoration-thickness: 2px;
+  }
+
+  &--accent {
+    color: var(--color-accent-text);
+  }
+
+  &--inherit {
+    color: inherit;
   }
 
   &--always {
@@ -28,6 +35,10 @@
     &:hover {
       text-decoration-line: underline;
     }
+  }
+
+  &--none {
+    text-decoration-line: none;
   }
 
   // Stretch the hit area over the nearest positioned ancestor (an interactive
