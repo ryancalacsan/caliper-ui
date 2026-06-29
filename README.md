@@ -79,6 +79,32 @@ To set the theme from the user's choice with no flash on first paint, set
 A consumer can override any token by redefining its custom property (for example
 `:root { --color-signal: #2347ff; }`) after the import.
 
+## Class names and collisions
+
+Caliper emits unprefixed BEM class names (`button`, `card`, `prose`, and so on).
+If your app defines its own top-level class with one of these names, the
+library's styles will apply to it too. The reserved top-level block class names:
+
+> `app-header`, `aspect-ratio`, `back-to-top`, `badge`, `button`, `callout`,
+> `card`, `checkbox`, `container`, `crosshair`, `dimension-line`, `divider`,
+> `drawer`, `eyebrow`, `frame`, `grid`, `grid-backdrop`, `heading`, `icon`,
+> `inline`, `link`, `mark`, `measure-frame`, `modal`, `nav-link`, `prose`,
+> `radio-group`, `section`, `select`, `sheet-header`, `skip-link`, `spacer`,
+> `stack`, `stat`, `stat-group`, `tabs`, `text`, `text-field`,
+> `theme-toggle`, `tooltip`, `visually-hidden`
+
+Avoid these names for your own elements, or scope your own styles (CSS Modules, a
+prefix, or a cascade layer). A future major release will prefix every emitted
+class with `cui-` so the library is collision-proof by default.
+
+## Recipes
+
+**Measure a specific element with `DimensionLine`.** The line is `width: 100%` of
+its parent, so to dimension one element (rather than its container), put the
+element and the line together in a `fit-content` wrapper. `MeasureFrame` does
+exactly this around a headline, with the dashed frame and crop marks; reach for
+it directly, or replicate the pattern for other content.
+
 ## What is here
 
 - **React + TypeScript**, built with Vite.

@@ -28,6 +28,10 @@ $font-size: (
   '4xl': 3rem,      // 48px - section display
   '5xl': 4rem,      // 64px - page display
   '6xl': 5.25rem,   // 84px - hero display
+  // Fluid hero size: scales with the viewport, capped at 6xl. The one entry
+  // that is a clamp rather than a fixed step, for headlines that must not
+  // overflow on small screens.
+  'display': clamp(2.75rem, 9vw, 5.25rem),
 );
 $font-weight: (
   'regular': 400,

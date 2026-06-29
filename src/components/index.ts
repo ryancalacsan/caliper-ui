@@ -75,6 +75,9 @@ export type {
 export { Prose } from './Prose';
 export type { ProseProps, ProseSize } from './Prose';
 
+export { Mark } from './Mark';
+export type { MarkProps, MarkTone, MarkThickness } from './Mark';
+
 // Content & data display
 export { Icon } from './Icon';
 export type { IconProps, IconSize } from './Icon';
@@ -88,6 +91,9 @@ export type { CardProps } from './Card';
 export { Stat } from './Stat';
 export type { StatProps } from './Stat';
 
+export { StatGroup } from './StatGroup';
+export type { StatGroupProps } from './StatGroup';
+
 export { Callout } from './Callout';
 export type { CalloutProps, CalloutTone } from './Callout';
 
@@ -96,7 +102,7 @@ export type { AspectRatioProps } from './AspectRatio';
 
 // Spec Sheet motifs
 export { Frame } from './Frame';
-export type { FrameProps } from './Frame';
+export type { FrameProps, FrameVariant } from './Frame';
 
 export { GridBackdrop } from './GridBackdrop';
 export type { GridBackdropProps, GridBackdropSize } from './GridBackdrop';
@@ -109,6 +115,9 @@ export type { DimensionLineProps, DimensionOrientation } from './DimensionLine';
 
 export { SheetHeader } from './SheetHeader';
 export type { SheetHeaderProps } from './SheetHeader';
+
+export { MeasureFrame } from './MeasureFrame';
+export type { MeasureFrameProps } from './MeasureFrame';
 
 // Navigation & chrome
 export { AppHeader } from './AppHeader';

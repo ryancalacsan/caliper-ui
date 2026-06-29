@@ -44,6 +44,12 @@ export const Default: Story = {
         </li>
         <li>A typography layer for long-form content</li>
       </ul>
+      <h3>Getting started</h3>
+      <ol>
+        <li>Install the package</li>
+        <li>Import the stylesheet once</li>
+        <li>Compose with the components</li>
+      </ol>
       <blockquote>
         The CSS is the artifact. For a CSS-forward system, the stylesheet is the
         work sample.
@@ -58,6 +64,9 @@ export const Default: Story = {
     await expect(canvas.getByRole('heading', { level: 2 })).toBeInTheDocument();
     const link = canvas.getByRole('link', { name: 'design tokens' });
     await expect(link).toBeInTheDocument();
-    await expect(canvas.getAllByRole('listitem')).toHaveLength(3);
+    await expect(canvas.getAllByRole('listitem')).toHaveLength(6);
+    // Markers stay set explicitly, so a host reset can't strip them.
+    const ul = canvasElement.querySelector('.prose ul');
+    await expect(ul).toHaveStyle({ listStyleType: 'disc' });
   },
 };

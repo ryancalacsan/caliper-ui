@@ -23,17 +23,20 @@ const stories = [
   // Typography
   { id: 'typography-heading--scale', name: 'typography-heading' },
   { id: 'typography-prose--default', name: 'typography-prose' },
+  { id: 'typography-mark--in-heading', name: 'typography-mark' },
   // Content & data display
   { id: 'content-card--composed', name: 'content-card' },
   { id: 'content-callout--tones', name: 'content-callout' },
   { id: 'content-badge--tones', name: 'content-badge' },
   { id: 'content-stat--strip', name: 'content-stat' },
+  { id: 'content-statgroup--strip', name: 'content-statgroup' },
   // Spec Sheet motifs
   { id: 'motifs-crosshair--sizes', name: 'motifs-crosshair' },
   { id: 'motifs-frame--default', name: 'motifs-frame' },
   { id: 'motifs-gridbackdrop--default', name: 'motifs-gridbackdrop' },
   { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
   { id: 'motifs-dimensionline--horizontal', name: 'motifs-dimensionline' },
+  { id: 'motifs-measureframe--default', name: 'motifs-measureframe' },
   // Navigation & chrome
   { id: 'chrome-appheader--default', name: 'chrome-appheader' },
   { id: 'chrome-navlink--nav', name: 'chrome-navlink' },

@@ -46,10 +46,16 @@
     font-size: var(--text-6xl);
   }
 
+  // Fluid hero size: scales with the viewport, capped at 6xl.
+  &--display {
+    font-size: var(--text-display);
+  }
+
   // Big display sizes sit tighter, line and letter both.
   &--4xl,
   &--5xl,
-  &--6xl {
+  &--6xl,
+  &--display {
     line-height: var(--leading-none);
     letter-spacing: var(--tracking-tightest);
   }

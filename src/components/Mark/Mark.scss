@@ -1,0 +1,43 @@
+// =============================================================================
+// Mark
+// -----------------------------------------------------------------------------
+// A highlighter underline behind inline text. .mark is the block; --signal /
+// --accent set the bar color, --sm/md/lg the weight. The text keeps its own
+// color; the bar is a no-repeat gradient near the baseline, cloned across lines.
+// =============================================================================
+
+.mark {
+  background-repeat: no-repeat;
+  background-position: 0 0.92em;
+
+  // Safari only supports the prefixed property, and there is no autoprefixer.
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+
+  &--signal {
+    background-image: linear-gradient(
+      var(--color-signal),
+      var(--color-signal)
+    );
+  }
+
+  &--accent {
+    background-image: linear-gradient(
+      var(--color-accent-text),
+      var(--color-accent-text)
+    );
+  }
+
+  &--sm {
+    background-size: 100% 0.08em;
+  }
+
+  &--md {
+    background-size: 100% 0.1em;
+  }
+
+  &--lg {
+    background-size: 100% 0.18em;
+  }
+}

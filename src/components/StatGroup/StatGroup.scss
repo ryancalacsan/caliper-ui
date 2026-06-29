@@ -1,0 +1,18 @@
+// =============================================================================
+// StatGroup
+// -----------------------------------------------------------------------------
+// A row of Stats. .stat-group is the block; --dividers draws a rule before
+// every stat after the first (so it sits between adjacent stats). Wraps to a
+// new line on narrow viewports.
+// =============================================================================
+
+.stat-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-xl);
+
+  &--dividers > * + * {
+    border-inline-start: 1px solid var(--color-border);
+    padding-inline-start: var(--space-xl);
+  }
+}

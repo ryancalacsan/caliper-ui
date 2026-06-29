@@ -9,6 +9,11 @@
   position: relative;
   border: var(--motif-rule-width) solid var(--color-text);
 
+  &--dashed {
+    border-style: dashed;
+    border-color: var(--color-text-subtle);
+  }
+
   &::before,
   &::after {
     content: '';

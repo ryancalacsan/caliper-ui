@@ -10,7 +10,8 @@ export type HeadingSize =
   | '3xl'
   | '4xl'
   | '5xl'
-  | '6xl';
+  | '6xl'
+  | 'display';
 export type HeadingWeight = 'semibold' | 'bold' | 'black';
 
 const DEFAULT_SIZE: Record<HeadingLevel, HeadingSize> = {

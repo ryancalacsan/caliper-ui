@@ -78,10 +78,18 @@
     font-style: italic;
   }
 
-  ul,
+  // Set the list style explicitly: a global reset in the host app
+  // (ul, ol { list-style: none }) would otherwise strip the markers.
+  ul {
+    margin: 0;
+    padding-left: var(--space-lg);
+    list-style: disc;
+  }
+
   ol {
     margin: 0;
     padding-left: var(--space-lg);
+    list-style: decimal;
   }
 
   li + li {

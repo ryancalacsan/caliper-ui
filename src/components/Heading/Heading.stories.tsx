@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { within, expect } from 'storybook/test';
 import { Heading } from './Heading';
 
-const SIZES = ['md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl'];
+const SIZES = ['md', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl', 'display'];
 
 const meta = {
   title: 'Typography/Heading',
@@ -35,6 +35,15 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/**
+ * The fluid `display` size scales with the viewport (clamped to 6xl), so a hero
+ * title fills the screen on desktop without overflowing on a phone. Resize the
+ * preview to see it move.
+ */
+export const FluidDisplay: Story = {
+  args: { size: 'display', weight: 'black', children: 'Drawn to spec' },
+};
 
 /** `level` drives the tag; `size` is independent. Here an h3 rendered large. */
 export const SizeDecoupledFromLevel: Story = {
