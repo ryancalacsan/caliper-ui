@@ -25,6 +25,7 @@ import {
   Frame,
   MeasureFrame,
   Crosshair,
+  GridBackdrop,
   NavLink,
   Link,
   ThemeToggle,
@@ -57,7 +58,7 @@ export function App() {
   }
 
   return (
-    <div className="spec">
+    <GridBackdrop variant="lines" size="grid" className="spec">
       <div className="spec__frame">
         {/* Top rail: brand, ruler, sheet index, mode */}
         <header className="spec__rail">
@@ -393,7 +394,7 @@ export function App() {
           <span>WCAG 2.2 AA</span>
         </footer>
       </div>
-    </div>
+    </GridBackdrop>
   );
 }
 
@@ -424,11 +425,11 @@ function Plate({
           ))}
         </ul>
       </div>
-      <div className="plate__stage">
+      <GridBackdrop variant="dots" size="grid-fine" className="plate__stage">
         <Crosshair className="plate__mark plate__mark--tl" />
         <Crosshair className="plate__mark plate__mark--br" />
         {children}
-      </div>
+      </GridBackdrop>
     </section>
   );
 }
