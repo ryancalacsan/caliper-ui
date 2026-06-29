@@ -107,23 +107,19 @@
     padding: var(--space-sm) var(--space-lg);
   }
 
+  // Caliper's ThemeToggle, reshaped to sit flush in the rail: drop its rounded
+  // full border for a single left divider, and fill with signal on hover.
   &__mode {
-    appearance: none;
     padding: var(--space-sm) var(--space-lg);
-    font: inherit;
-    text-transform: uppercase;
-    letter-spacing: var(--tracking-wide);
-    color: var(--color-text);
-    background-color: transparent;
     border: 0;
-    border-left: 1.5px solid var(--color-text);
-    cursor: pointer;
+    border-inline-start: var(--motif-rule-width) solid var(--color-text);
+    border-radius: 0;
 
-    @include mix.transition(background-color, color);
     @include mix.focus-ring($offset: -3px);
 
     &:hover {
       background-color: var(--color-signal);
+      border-color: var(--color-text);
       color: var(--color-text-on-signal);
     }
   }
@@ -137,16 +133,13 @@
     }
   }
 
+  // Eyebrow supplies the mono type; the demo only lays out the coordinate and
+  // separator beside it.
   &__eyebrow {
     display: flex;
     align-items: center;
     gap: var(--space-sm);
     margin-bottom: var(--space-xl);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wider);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
 
     b {
       color: var(--color-accent-text);
@@ -154,170 +147,23 @@
     }
   }
 
-  // The dimensioned headline: the signature.
-  &__measure {
-    position: relative;
-    display: inline-block;
-    padding: 0.4rem 0.1rem;
-  }
-
-  &__measure::before {
-    content: '';
-    position: absolute;
-    inset: -0.6rem -0.9rem;
-    border: 1px dashed var(--color-text-subtle);
-    pointer-events: none;
-  }
-
-  &__crosshair {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    pointer-events: none;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      background-color: var(--color-signal);
-    }
-
-    &::before {
-      left: 50%;
-      top: 0;
-      width: 1.5px;
-      height: 100%;
-      transform: translateX(-50%);
-    }
-
-    &::after {
-      top: 50%;
-      left: 0;
-      height: 1.5px;
-      width: 100%;
-      transform: translateY(-50%);
-    }
-
-    &--tl {
-      top: -8px;
-      left: -8px;
-    }
-
-    &--br {
-      right: -8px;
-      bottom: -8px;
-    }
-  }
-
-  &__dim {
-    position: absolute;
-    left: -0.9rem;
-    right: -0.9rem;
-    bottom: -1.9rem;
-    height: 1px;
-    background-color: var(--color-border-strong);
-
-    span {
-      position: absolute;
-      left: 50%;
-      top: -0.5rem;
-      transform: translateX(-50%);
-      padding: 0 var(--space-xs);
-      background-color: var(--color-bg);
-      font-family: var(--font-mono);
-      font-size: 0.625rem;
-      letter-spacing: var(--tracking-wide);
-      color: var(--color-text-muted);
-      white-space: nowrap;
-    }
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      top: -4px;
-      width: 1px;
-      height: 9px;
-      background-color: var(--color-border-strong);
-    }
-
-    &::before {
-      left: 0;
-    }
-
-    &::after {
-      right: 0;
-    }
-  }
-
-  &__title {
-    margin: 0;
-    font-size: clamp(2.5rem, 6.4vw, var(--text-6xl));
-    font-weight: var(--weight-black);
-    line-height: 0.95;
-    letter-spacing: -0.035em;
-    max-width: 16ch;
-  }
-
-  &__mark {
-    // Orange marker underline under ink text (the underline is decorative).
-    background: linear-gradient(var(--color-signal), var(--color-signal)) no-repeat;
-    background-position: 0 0.92em;
-    background-size: 100% 0.1em;
-  }
-
+  // Text supplies the body type; the demo only sets the hero measure.
   &__lead {
     margin-top: var(--space-2xl);
     max-width: 46ch;
-    font-size: var(--text-md);
-    line-height: var(--leading-normal);
-    color: var(--color-text-muted);
   }
 
+  // Inline supplies the flex row; the demo only sets the top margin.
   &__cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-sm);
     margin-top: var(--space-xl);
   }
 
+  // StatGroup + Stat supply the readout; the demo adds the hero's top rule.
   &__stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0;
-    margin: var(--space-2xl) 0 0;
-    border-top: 1.5px solid var(--color-text);
     width: fit-content;
-
-    > div {
-      padding: var(--space-md) var(--space-xl) var(--space-md) 0;
-      margin-right: var(--space-xl);
-      border-right: 1px solid var(--color-border);
-
-      &:last-child {
-        border-right: 0;
-        margin-right: 0;
-      }
-    }
-
-    dt {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      letter-spacing: var(--tracking-wider);
-      text-transform: uppercase;
-      color: var(--color-text-subtle);
-    }
-
-    dd {
-      margin: var(--space-2xs) 0 0;
-      font-size: var(--text-2xl);
-      font-weight: var(--weight-bold);
-      letter-spacing: var(--tracking-tight);
-    }
-  }
-
-  &__stat-accent {
-    color: var(--color-accent-text);
+    margin-top: var(--space-2xl);
+    padding-top: var(--space-md);
+    border-top: var(--motif-rule-width) solid var(--color-text);
   }
 
   // --- Footer ---------------------------------------------------------------
@@ -367,19 +213,6 @@
     }
   }
 
-  &__fields {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
-    gap: var(--space-xl);
-    width: 100%;
-    max-width: 44rem;
-  }
-
-  &__stack {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
 }
 
 // --- Plates -----------------------------------------------------------------
@@ -411,10 +244,9 @@
     color: var(--color-accent-text);
   }
 
+  // Heading supplies the size and weight; the demo only sets the label margin.
   &__title {
     margin: var(--space-xs) 0 var(--space-md);
-    font-size: var(--text-xl);
-    font-weight: var(--weight-bold);
     letter-spacing: var(--tracking-tight);
   }
 
@@ -450,6 +282,23 @@
     @include mix.media-down('md') {
       padding: var(--space-lg);
     }
+  }
+
+  // Position the Caliper Crosshair components at the stage corners (the mark's
+  // own visual comes from the component).
+  &__mark {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &__mark--tl {
+    inset-block-start: -8px;
+    inset-inline-start: -8px;
+  }
+
+  &__mark--br {
+    inset-block-end: -8px;
+    inset-inline-end: -8px;
   }
 
   // A button placed directly in a stage (the modal trigger) sizes to content.

@@ -12,15 +12,22 @@ import {
   Heading,
   Eyebrow,
   Text,
+  Mark,
   Stack,
   Inline,
   Grid,
   Divider,
   Card,
   Badge,
+  Stat,
+  StatGroup,
   Callout,
+  Frame,
+  MeasureFrame,
+  Crosshair,
   NavLink,
   Link,
+  ThemeToggle,
 } from './components';
 import './App.scss';
 
@@ -60,76 +67,64 @@ export function App() {
           </a>
           <div className="spec__ruler" aria-hidden="true" />
           <div className="spec__railmeta">
-            <span>Sheet 01 / 08</span>
-            <button
-              type="button"
+            <span>Sheet 01 / 09</span>
+            {/* Caliper's own ThemeToggle, in controlled mode: the demo owns the
+                theme (applied to the document by the effect above) and the
+                toggle defers to it. */}
+            <ThemeToggle
               className="spec__mode"
-              aria-pressed={theme === 'dark'}
-              onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            >
-              {theme === 'light' ? 'Light' : 'Dev'}
-            </button>
+              theme={theme}
+              onThemeChange={setTheme}
+            />
           </div>
         </header>
 
         <main id="top">
           {/* Hero with the dimensioned headline */}
           <section className="spec__hero">
-            <p className="spec__eyebrow">
+            <Eyebrow className="spec__eyebrow">
               <span className="spec__coord">↘ 00.0</span>
               <b aria-hidden="true">///</b>
               Accessible component system
-            </p>
+            </Eyebrow>
 
-            <div className="spec__measure">
-              <span
-                className="spec__crosshair spec__crosshair--tl"
-                aria-hidden="true"
-              />
-              <span
-                className="spec__crosshair spec__crosshair--br"
-                aria-hidden="true"
-              />
-              <h1 className="spec__title">
+            {/* The signature dimensioned headline, built from Caliper itself:
+                MeasureFrame (dashed frame + crop crosshairs + dimension line)
+                wrapping a display Heading with a Mark underline. */}
+            {/* spec__measure is the entrance-animation hook; the visual motif
+                comes entirely from the MeasureFrame component. */}
+            <MeasureFrame
+              label="W — measured to the pixel"
+              className="spec__measure"
+            >
+              <Heading level={1} size="display" weight="black">
                 A component
                 <br />
-                system, <span className="spec__mark">drawn to spec.</span>
-              </h1>
-              <span className="spec__dim" aria-hidden="true">
-                <span>W — measured to the pixel</span>
-              </span>
-            </div>
+                system, <Mark>drawn to spec.</Mark>
+              </Heading>
+            </MeasureFrame>
 
-            <p className="spec__lead">
+            <Text className="spec__lead" size="md" tone="muted">
               A small, accessible React component library, published on npm.
               Hand-written SCSS, design tokens as the single source of truth,
-              every measurement deliberate. Thirty-eight components, two themes,
+              every measurement deliberate. Forty-one components, two themes,
               WCAG 2.2 AA.
-            </p>
+            </Text>
 
-            <div className="spec__cta">
+            <Inline className="spec__cta" gap="sm" wrap>
               <Button onClick={exploreComponents}>Explore the system</Button>
               <Tooltip content="Open the component docs">
                 <Button asChild variant="secondary">
                   <a href="/storybook/">Storybook ↗</a>
                 </Button>
               </Tooltip>
-            </div>
+            </Inline>
 
-            <dl className="spec__stats">
-              <div>
-                <dt>Components</dt>
-                <dd>38</dd>
-              </div>
-              <div>
-                <dt>Themes</dt>
-                <dd>02</dd>
-              </div>
-              <div>
-                <dt>Contrast</dt>
-                <dd className="spec__stat-accent">AA</dd>
-              </div>
-            </dl>
+            <StatGroup dividers className="spec__stats">
+              <Stat label="Components" value="41" />
+              <Stat label="Themes" value="02" />
+              <Stat label="Contrast" value="AA" accent />
+            </StatGroup>
           </section>
 
           <Plate
@@ -152,7 +147,11 @@ export function App() {
             title="Form controls"
             meta={['labelled', 'aria-wired']}
           >
-            <div className="spec__fields">
+            <Grid
+              minItemWidth="15rem"
+              gap="xl"
+              style={{ width: '100%', maxWidth: '44rem' }}
+            >
               <TextField
                 label="Email address"
                 type="email"
@@ -184,14 +183,14 @@ export function App() {
                   { label: 'Weekly summary', value: 'weekly' },
                 ]}
               />
-              <div className="spec__stack">
+              <Stack gap="xs">
                 <Checkbox
                   label="Email me about product updates"
                   defaultChecked
                 />
                 <Checkbox label="Make profile public" />
-              </div>
-            </div>
+              </Stack>
+            </Grid>
           </Plate>
 
           <Plate
@@ -299,11 +298,26 @@ export function App() {
           >
             <Stack gap="md" style={{ width: '100%', maxWidth: '24rem' }}>
               <Card
+                interactive
                 header={
-                  <Inline justify="between" align="start">
-                    <Eyebrow>Case study</Eyebrow>
-                    <Badge tone="accent">New</Badge>
-                  </Inline>
+                  <>
+                    <Inline justify="between" align="start">
+                      <Eyebrow>Case study</Eyebrow>
+                      <Badge tone="accent" shape="square">
+                        New
+                      </Badge>
+                    </Inline>
+                    <Heading level={3} size="lg">
+                      <Link
+                        stretch
+                        tone="inherit"
+                        underline="none"
+                        href="/storybook/"
+                      >
+                        Caliper UI
+                      </Link>
+                    </Heading>
+                  </>
                 }
                 footer={
                   <Button asChild size="sm" variant="secondary">
@@ -312,8 +326,9 @@ export function App() {
                 }
               >
                 <Text size="sm" tone="muted">
-                  A project card composed from Card, Eyebrow, Badge, Text, and
-                  an asChild Button — the pattern a portfolio card uses.
+                  The whole card is a link (a stretched Link), while the footer
+                  button stays clickable above it — the pattern a portfolio card
+                  uses.
                 </Text>
               </Card>
               <Callout tone="accent" title="Measured to spec">
@@ -340,6 +355,34 @@ export function App() {
                 focus-trapped Drawer, a theme toggle, skip links, and a sticky
                 AppHeader.
               </Text>
+            </Stack>
+          </Plate>
+
+          <Plate
+            code="MTF — 09"
+            title="Spec Sheet motifs"
+            meta={['frame + marks', 'measured']}
+          >
+            <Stack gap="lg" style={{ width: '100%', maxWidth: '34rem' }}>
+              <MeasureFrame label="W — sized to content">
+                <Heading level={3} size="xl" weight="black">
+                  <Mark>Drawn to spec.</Mark>
+                </Heading>
+              </MeasureFrame>
+              <Frame
+                variant="dashed"
+                marks="all"
+                style={{ padding: 'var(--space-md)' }}
+              >
+                <Text size="sm" tone="muted">
+                  Frame — dashed border with all four registration corners.
+                </Text>
+              </Frame>
+              <StatGroup dividers>
+                <Stat label="Components" value="41" />
+                <Stat label="Themes" value="02" />
+                <Stat label="Contrast" value="AA" accent />
+              </StatGroup>
             </Stack>
           </Plate>
         </main>
@@ -372,7 +415,9 @@ function Plate({
     <section id={id} className="plate">
       <div className="plate__label">
         <span className="plate__code">{code}</span>
-        <h2 className="plate__title">{title}</h2>
+        <Heading level={2} size="xl" weight="bold" className="plate__title">
+          {title}
+        </Heading>
         <ul className="plate__meta">
           {meta.map((m) => (
             <li key={m}>{m}</li>
@@ -380,14 +425,8 @@ function Plate({
         </ul>
       </div>
       <div className="plate__stage">
-        <span
-          className="spec__crosshair spec__crosshair--tl"
-          aria-hidden="true"
-        />
-        <span
-          className="spec__crosshair spec__crosshair--br"
-          aria-hidden="true"
-        />
+        <Crosshair className="plate__mark plate__mark--tl" />
+        <Crosshair className="plate__mark plate__mark--br" />
         {children}
       </div>
     </section>
