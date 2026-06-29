@@ -2,9 +2,12 @@
 // Card
 // -----------------------------------------------------------------------------
 // A bordered surface. .card is the block; __media / __body / __header /
-// __footer are the regions. Media sits full-bleed at the top; the footer is
-// divided from the body.
+// __footer are the regions. --fill makes equal-height cards with a pinned
+// footer; --horizontal puts media beside the body; --interactive makes the
+// whole card a clickable surface for a stretched link inside.
 // =============================================================================
+
+@use '../../styles/mixins' as mix;
 
 .card {
   display: flex;
@@ -14,6 +17,64 @@
   background-color: var(--color-surface);
   color: var(--color-text);
   overflow: hidden;
+
+  // Fill a stretched grid/flex cell so cards in a row match height; the body
+  // grows so the footer pins to the bottom and lines up across the row.
+  &--fill {
+    block-size: 100%;
+
+    .card__body {
+      flex: 1;
+    }
+  }
+
+  // Media beside the body, reflowing to vertical when the card gets narrow.
+  &--horizontal {
+    flex-direction: row;
+
+    .card__body {
+      flex: 1;
+    }
+
+    .card__media {
+      flex: 0 0 40%;
+      border-block-end: 0;
+      border-inline-end: 1px solid var(--color-border);
+    }
+
+    @include mix.media-down('sm') {
+      flex-direction: column;
+
+      .card__media {
+        flex: auto;
+        border-inline-end: 0;
+        border-block-end: 1px solid var(--color-border);
+      }
+    }
+  }
+
+  // A clickable surface: a stretched Link/NavLink inside makes the whole card
+  // follow one link, while footer actions stay clickable above the overlay.
+  &--interactive {
+    position: relative;
+
+    @include mix.transition(border-color, box-shadow);
+
+    &:hover {
+      border-color: var(--color-border-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    &:focus-within {
+      outline: 2px solid var(--color-focus-ring);
+      outline-offset: 2px;
+    }
+
+    .card__footer {
+      position: relative;
+      z-index: 1;
+    }
+  }
 }
 
 .card__media {

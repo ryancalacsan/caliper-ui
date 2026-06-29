@@ -22,6 +22,7 @@ const meta = {
       control: 'inline-radio',
       options: ['neutral', 'accent', 'success', 'danger'],
     },
+    shape: { control: 'inline-radio', options: ['pill', 'square'] },
     children: { control: 'text' },
   },
 } satisfies Meta<typeof Badge>;
@@ -30,6 +31,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** `square` takes the sharp radius, to match the rest of the Spec Sheet system. */
+export const Shapes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+      <Badge shape="pill">Pill</Badge>
+      <Badge shape="square">Square</Badge>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getByText('Square')).toHaveClass(
+      'badge--square',
+    );
+  },
+};
 
 export const Tones: Story = {
   render: () => (

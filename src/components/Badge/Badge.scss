@@ -12,7 +12,6 @@
   gap: var(--space-2xs);
   padding: var(--space-2xs) var(--space-sm);
   border: 1px solid currentcolor;
-  border-radius: var(--radius-full);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
@@ -20,6 +19,14 @@
   text-transform: uppercase;
   white-space: nowrap;
   line-height: 1;
+
+  &--pill {
+    border-radius: var(--radius-full);
+  }
+
+  &--square {
+    border-radius: var(--radius-sm);
+  }
 
   &--neutral {
     color: var(--color-text-muted);

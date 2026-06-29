@@ -5,8 +5,10 @@ import { AspectRatio } from '../AspectRatio/AspectRatio';
 import { Badge } from '../Badge/Badge';
 import { Button } from '../Button/Button';
 import { Eyebrow } from '../Eyebrow/Eyebrow';
+import { Grid } from '../Grid/Grid';
 import { Heading } from '../Heading/Heading';
 import { Inline } from '../Inline/Inline';
+import { Link } from '../Link/Link';
 import { Text } from '../Text/Text';
 
 const meta = {
@@ -79,5 +81,118 @@ export const Composed: Story = {
     ).toBeInTheDocument();
     const link = canvas.getByRole('link', { name: 'Read more' });
     await expect(link).toHaveClass('button');
+  },
+};
+
+/** `fill` in a stretched Grid gives equal-height cards with footers aligned. */
+export const FillGrid: Story = {
+  render: () => (
+    <Grid minItemWidth="14rem" gap="md">
+      {[
+        { t: 'Short', d: 'A brief one.' },
+        {
+          t: 'Longer card',
+          d: 'This one has more body copy, so without fill the footers would not line up across the row.',
+        },
+        { t: 'Medium', d: 'Two lines of copy here to differ.' },
+      ].map((c) => (
+        <Card
+          key={c.t}
+          fill
+          header={
+            <Heading level={3} size="lg">
+              {c.t}
+            </Heading>
+          }
+          footer={
+            <Button asChild size="sm" variant="secondary">
+              <a href="#open">Open</a>
+            </Button>
+          }
+        >
+          <Text size="sm" tone="muted">
+            {c.d}
+          </Text>
+        </Card>
+      ))}
+    </Grid>
+  ),
+};
+
+/** `orientation="horizontal"` sets media beside the body (reflows when narrow). */
+export const Horizontal: Story = {
+  render: () => (
+    <div style={{ maxWidth: '34rem' }}>
+      <Card
+        orientation="horizontal"
+        media={
+          <AspectRatio ratio={1}>
+            <div
+              style={{
+                display: 'grid',
+                placeItems: 'center',
+                background: 'var(--color-primary-bg)',
+                fontFamily: 'var(--font-mono)',
+                color: 'var(--color-text-muted)',
+              }}
+            >
+              cover
+            </div>
+          </AspectRatio>
+        }
+        header={
+          <Heading level={3} size="lg">
+            Featured case study
+          </Heading>
+        }
+      >
+        <Text size="sm" tone="muted">
+          Media beside the body, for a small set of featured rows.
+        </Text>
+      </Card>
+    </div>
+  ),
+};
+
+/**
+ * `interactive` plus a stretched `Link` in the header makes the whole card
+ * follow that link, while the footer button stays independently clickable.
+ */
+export const Interactive: Story = {
+  render: () => (
+    <div style={{ maxWidth: '24rem' }}>
+      <Card
+        interactive
+        header={
+          <Heading level={3} size="lg">
+            <Link stretch underline="hover" href="#case-study">
+              Caliper UI
+            </Link>
+          </Heading>
+        }
+        footer={
+          <Button size="sm" variant="ghost">
+            Share
+          </Button>
+        }
+      >
+        <Text size="sm" tone="muted">
+          The whole card links to the case study; the Share button still works
+          on its own.
+        </Text>
+      </Card>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const card = canvasElement.querySelector('.card');
+    await expect(card).toHaveClass('card--interactive');
+    await expect(canvas.getByRole('link', { name: 'Caliper UI' })).toHaveClass(
+      'link--stretch',
+    );
+    // The footer action is still its own control.
+    await expect(
+      canvas.getByRole('button', { name: 'Share' }),
+    ).toBeInTheDocument();
   },
 };

@@ -28,8 +28,11 @@ const stories = [
   { id: 'content-card--composed', name: 'content-card' },
   { id: 'content-callout--tones', name: 'content-callout' },
   { id: 'content-badge--tones', name: 'content-badge' },
+  { id: 'content-badge--shapes', name: 'content-badge-shapes' },
   { id: 'content-stat--strip', name: 'content-stat' },
   { id: 'content-statgroup--strip', name: 'content-statgroup' },
+  { id: 'content-card--fill-grid', name: 'content-card-fill' },
+  { id: 'content-card--horizontal', name: 'content-card-horizontal' },
   // Spec Sheet motifs
   { id: 'motifs-crosshair--sizes', name: 'motifs-crosshair' },
   { id: 'motifs-frame--default', name: 'motifs-frame' },
@@ -37,6 +40,7 @@ const stories = [
   { id: 'motifs-sheetheader--default', name: 'motifs-sheetheader' },
   { id: 'motifs-dimensionline--horizontal', name: 'motifs-dimensionline' },
   { id: 'motifs-measureframe--default', name: 'motifs-measureframe' },
+  { id: 'motifs-frame--marks', name: 'motifs-frame-marks' },
   // Navigation & chrome
   { id: 'chrome-appheader--default', name: 'chrome-appheader' },
   { id: 'chrome-navlink--nav', name: 'chrome-navlink' },

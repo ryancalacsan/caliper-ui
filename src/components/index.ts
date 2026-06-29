@@ -83,10 +83,10 @@ export { Icon } from './Icon';
 export type { IconProps, IconSize } from './Icon';
 
 export { Badge } from './Badge';
-export type { BadgeProps, BadgeTone } from './Badge';
+export type { BadgeProps, BadgeTone, BadgeShape } from './Badge';
 
 export { Card } from './Card';
-export type { CardProps } from './Card';
+export type { CardProps, CardOrientation } from './Card';
 
 export { Stat } from './Stat';
 export type { StatProps } from './Stat';
@@ -98,11 +98,11 @@ export { Callout } from './Callout';
 export type { CalloutProps, CalloutTone } from './Callout';
 
 export { AspectRatio } from './AspectRatio';
-export type { AspectRatioProps } from './AspectRatio';
+export type { AspectRatioProps, AspectRatioFit } from './AspectRatio';
 
 // Spec Sheet motifs
 export { Frame } from './Frame';
-export type { FrameProps, FrameVariant } from './Frame';
+export type { FrameProps, FrameVariant, FrameMarks } from './Frame';
 
 export { GridBackdrop } from './GridBackdrop';
 export type { GridBackdropProps, GridBackdropSize } from './GridBackdrop';

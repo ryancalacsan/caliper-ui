@@ -1,8 +1,10 @@
 // =============================================================================
 // Frame
 // -----------------------------------------------------------------------------
-// A bordered box with signal registration corners (top-left and bottom-right),
-// drawn with ::before / ::after. The outer shell of the Spec Sheet look.
+// A bordered box with signal registration corners. .frame is the block;
+// --dashed sets the border style; --marks-* control which corners are drawn.
+// The tl/br marks are pseudo-elements; the tr/bl marks are __corner spans the
+// component renders only for marks="all".
 // =============================================================================
 
 .frame {
@@ -14,28 +16,54 @@
     border-color: var(--color-text-subtle);
   }
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    inline-size: var(--motif-mark-size);
-    block-size: var(--motif-mark-size);
-    border: var(--motif-rule-width) solid var(--color-mark);
-  }
+  &--marks-tlbr,
+  &--marks-all {
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      inline-size: var(--motif-mark-size);
+      block-size: var(--motif-mark-size);
+      border: var(--motif-rule-width) solid var(--color-mark);
+    }
 
-  // Top-left corner.
-  &::before {
+    // Top-left.
+    &::before {
+      inset-block-start: calc(var(--motif-rule-width) * -1);
+      inset-inline-start: calc(var(--motif-rule-width) * -1);
+      border-inline-end: 0;
+      border-block-end: 0;
+    }
+
+    // Bottom-right.
+    &::after {
+      inset-block-end: calc(var(--motif-rule-width) * -1);
+      inset-inline-end: calc(var(--motif-rule-width) * -1);
+      border-inline-start: 0;
+      border-block-start: 0;
+    }
+  }
+}
+
+.frame__corner {
+  position: absolute;
+  inline-size: var(--motif-mark-size);
+  block-size: var(--motif-mark-size);
+  border: var(--motif-rule-width) solid var(--color-mark);
+
+  // Top-right.
+  &--tr {
     inset-block-start: calc(var(--motif-rule-width) * -1);
-    inset-inline-start: calc(var(--motif-rule-width) * -1);
-    border-inline-end: 0;
+    inset-inline-end: calc(var(--motif-rule-width) * -1);
+    border-inline-start: 0;
     border-block-end: 0;
   }
 
-  // Bottom-right corner.
-  &::after {
+  // Bottom-left.
+  &--bl {
     inset-block-end: calc(var(--motif-rule-width) * -1);
-    inset-inline-end: calc(var(--motif-rule-width) * -1);
-    border-inline-start: 0;
+    inset-inline-start: calc(var(--motif-rule-width) * -1);
+    border-inline-end: 0;
     border-block-start: 0;
   }
 }

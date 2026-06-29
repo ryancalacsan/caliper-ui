@@ -17,9 +17,10 @@ const meta = {
     },
   },
   tags: ['autodocs'],
-  args: { variant: 'solid' },
+  args: { variant: 'solid', marks: 'tlbr' },
   argTypes: {
     variant: { control: 'inline-radio', options: ['solid', 'dashed'] },
+    marks: { control: 'inline-radio', options: ['none', 'tlbr', 'all'] },
   },
 } satisfies Meta<typeof Frame>;
 
@@ -45,6 +46,28 @@ export const Default: Story = {
       within(canvasElement).getByText('Framed region'),
     ).toBeInTheDocument();
     await expect(canvasElement.querySelector('.frame')).toBeInTheDocument();
+  },
+};
+
+/** The registration corner options: none, the default tl/br, or all four. */
+export const Marks: Story = {
+  render: () => (
+    <div
+      style={{ display: 'grid', gap: 'var(--space-2xl)', maxWidth: '24rem' }}
+    >
+      {(['none', 'tlbr', 'all'] as const).map((m) => (
+        <Frame key={m} marks={m} style={{ padding: 'var(--space-lg)' }}>
+          <p style={label}>marks: {m}</p>
+        </Frame>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    // marks="all" renders the two extra corner spans.
+    const all = canvasElement.querySelectorAll(
+      '.frame--marks-all .frame__corner',
+    );
+    await expect(all).toHaveLength(2);
   },
 };
 

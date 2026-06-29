@@ -105,11 +105,72 @@ element and the line together in a `fit-content` wrapper. `MeasureFrame` does
 exactly this around a headline, with the dashed frame and crop marks; reach for
 it directly, or replicate the pattern for other content.
 
+**Equal-height cards in a grid.** Put the cards in a `Grid` (its items stretch by
+default) and set `fill` on each card. The body grows so the footers line up
+across the row, with no consumer CSS:
+
+```tsx
+<Grid minItemWidth="16rem" gap="md">
+  {projects.map((p) => (
+    <Card key={p.id} fill footer={<Link href={p.href}>View</Link>}>
+      ...
+    </Card>
+  ))}
+</Grid>
+```
+
+**A whole card as a link.** Set `interactive` on the `Card` and `stretch` on the
+title `Link`. The link's hit area covers the card, so a click anywhere follows
+it, while footer actions stay clickable:
+
+```tsx
+<Card
+  interactive
+  header={
+    <Heading level={3}>
+      <Link stretch href={p.href}>
+        {p.title}
+      </Link>
+    </Heading>
+  }
+  footer={<Button>Share</Button>}
+>
+  ...
+</Card>
+```
+
+**Use with next-themes (or another theme store).** Caliper reads `data-theme` on
+`<html>`. next-themes writes a class by default, so set it to write both:
+
+```tsx
+<ThemeProvider attribute={['class', 'data-theme']} defaultTheme="system" enableSystem>
+```
+
+Let next-themes own the theme (it handles persistence and the no-flash script).
+Either keep your existing toggle, or use Caliper's `ThemeToggle` in controlled
+mode so it defers to the store instead of managing `data-theme` itself:
+
+```tsx
+'use client';
+import { useTheme } from 'next-themes';
+import { ThemeToggle } from '@ryancalacsan/caliper-ui';
+
+export function Toggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  return (
+    <ThemeToggle
+      theme={resolvedTheme as 'light' | 'dark' | undefined}
+      onThemeChange={setTheme}
+    />
+  );
+}
+```
+
 ## What is here
 
 - **React + TypeScript**, built with Vite.
 - **Design tokens** as SCSS maps, mirrored to CSS custom properties.
-- **38 components** with typed props, BEM SCSS, and full keyboard and ARIA
+- **41 components** with typed props, BEM SCSS, and full keyboard and ARIA
   support: eight interactive (Button, TextField, Modal, Checkbox, RadioGroup,
   Select, Tabs, Tooltip), plus layout primitives, typography, content and
   data-display, the Spec Sheet motifs, and navigation chrome.

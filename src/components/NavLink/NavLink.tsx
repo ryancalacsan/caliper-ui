@@ -13,7 +13,9 @@ export interface NavLinkProps extends ComponentPropsWithoutRef<'a'> {
 
 /**
  * A navigation link in the mono voice, with an active state that draws a signal
- * underline and sets `aria-current="page"`.
+ * underline and sets `aria-current="page"`. For a whole-card link use `Link`
+ * with `stretch` - NavLink's own positioned underline prevents it from
+ * stretching past itself.
  */
 export function NavLink({
   active = false,
