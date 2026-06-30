@@ -97,6 +97,56 @@ Avoid these names for your own elements, or scope your own styles (CSS Modules, 
 prefix, or a cascade layer). A future major release will prefix every emitted
 class with `cui-` so the library is collision-proof by default.
 
+## Design tokens (code ↔ Figma)
+
+The tokens are authored once, in a tool-agnostic format, and everything else is
+generated from that one source. So the CSS the code ships and the variables a
+designer uses in Figma come from the same place, by construction.
+
+**Source of truth.** `tokens/*.json` holds the tokens in the W3C
+[DTCG](https://www.designtokens.org/) format (`$value` / `$type`), grouped by
+category (color, space, text, radius, shadow, motif, and so on). Colors are
+authored once per theme in `theme.light.json` / `theme.dark.json`; the semantic
+roles alias the primitive ramps in `primitives.json`.
+
+**Build.** Style Dictionary resolves the aliases and renders two outputs, both
+committed and both checked in CI:
+
+- `tokens/tokens.css` (published as `@ryancalacsan/caliper-ui/tokens.css`) - the
+  custom properties, with the two themes as `:root` / `[data-theme="dark"]` and a
+  `prefers-color-scheme` fallback.
+- `src/tokens/_generated.scss` - the SCSS maps the components compile against, so
+  the component CSS draws from the same source.
+
+```bash
+npm run build:tokens     # regenerate both from tokens/*.json
+npm run tokens:check     # CI: rebuild and fail if either has drifted
+```
+
+The token layer was migrated to this pipeline with a value-for-value parity gate:
+the generated `tokens.css` and the compiled `caliper.css` are byte-for-byte
+identical to the prior hand-authored output, so consumers see no change.
+
+**Figma.** The same source feeds Figma, with **light and dark as the two modes**
+of a single `Caliper` variable collection:
+
+- `npm run build:figma` writes `tokens/figma/light.json` and `dark.json` (one
+  resolved DTCG file per mode) for Figma's native variable import or for
+  [Tokens Studio](https://tokens.studio/).
+- `npm run figma:push` imports/updates the variables directly through the Figma
+  Variables REST API - the plugin-free path. It is gated on two environment
+  variables and never hard-codes a secret:
+
+  ```bash
+  node scripts/figma-push.mjs --dry-run          # print the payload, no network
+  FIGMA_TOKEN=… FIGMA_FILE_ID=… npm run figma:push
+  ```
+
+  Colors convert to Figma's 0..1 RGBA, dimensions become pixel floats, and fluid,
+  font, easing, and shadow values stay strings. Point it at a fresh file first.
+  Note: Figma's Variables **write** REST API needs an Enterprise org seat; on
+  other plans, use the native import or Tokens Studio with the per-mode files.
+
 ## Recipes
 
 **Measure a specific element with `DimensionLine`.** The line is `width: 100%` of

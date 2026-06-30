@@ -1,0 +1,4 @@
+# Generated from the DTCG token source (tokens/*.json) by scripts/build-tokens.mjs.
+# Its formatting mirrors the exact emitted values, so the hand-authored style
+# rules do not apply.
+src/tokens/_generated.scss

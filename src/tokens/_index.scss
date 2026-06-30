@@ -6,11 +6,9 @@
 // and read values through the helpers in `styles/functions`.
 // =============================================================================
 
-@forward 'colors';
-@forward 'typography';
-@forward 'spacing';
-@forward 'radii';
-@forward 'elevation';
-@forward 'motion';
+// The token maps are generated from the DTCG source (tokens/*.json) by
+// scripts/build-tokens.mjs. Breakpoints stay hand-authored: they are consumed
+// only in Sass (media queries can't read custom properties) and are not part of
+// the DTCG/CSS/Figma pipeline.
+@forward 'generated';
 @forward 'breakpoints';
-@forward 'motif';

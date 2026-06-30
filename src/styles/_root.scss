@@ -35,11 +35,11 @@
 
   @include theme-colors(tokens.$semantic-dark);
 
-  // Plain drop shadows vanish on a dark canvas, so they are deepened here to
-  // keep modals, menus, and tooltips legible against the page.
-  --shadow-sm: 0 1px 2px rgb(0 0 0 / 40%);
-  --shadow-md: 0 4px 16px rgb(0 0 0 / 50%);
-  --shadow-lg: 0 16px 40px rgb(0 0 0 / 60%);
+  // Plain drop shadows vanish on a dark canvas, so they are deepened. These dark
+  // values come from the token source (tokens/theme.dark.json) like the rest.
+  @each $name, $value in tokens.$shadow-dark {
+    --shadow-#{$name}: #{$value};
+  }
 }
 
 :root {
