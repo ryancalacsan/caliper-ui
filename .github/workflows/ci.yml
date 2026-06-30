@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run lint
+      # Rebuild the token outputs from the DTCG source and fail if the committed
+      # tokens.css / SCSS maps have drifted from tokens/*.json.
+      - run: npm run tokens:check
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run test:contrast

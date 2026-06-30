@@ -1,0 +1,53 @@
+{
+  "palette": {
+    "$description": "Raw color ramps. These are the primitives the semantic color roles alias; they are not emitted as custom properties themselves.",
+    "neutral": {
+      "$type": "color",
+      "0": { "$value": "#fffdf7" },
+      "50": { "$value": "#faf8f2" },
+      "100": { "$value": "#f3f1ea" },
+      "150": { "$value": "#eceae1" },
+      "200": { "$value": "#ddd9cc" },
+      "300": { "$value": "#c7c2b2" },
+      "400": { "$value": "#8b8678" },
+      "500": { "$value": "#6b6657" },
+      "600": { "$value": "#565144" },
+      "700": { "$value": "#322f26" },
+      "800": { "$value": "#232017" },
+      "850": { "$value": "#17150f" },
+      "900": { "$value": "#16140f" },
+      "950": { "$value": "#0f0d0a" }
+    },
+    "signal": {
+      "$type": "color",
+      "50": { "$value": "#fff1ea" },
+      "100": { "$value": "#ffd9c4" },
+      "300": { "$value": "#ff8a4d" },
+      "400": { "$value": "#ff6a23" },
+      "450": { "$value": "#ff5a1a" },
+      "500": { "$value": "#ff4d00" },
+      "600": { "$value": "#db3f00" },
+      "700": { "$value": "#b83400" }
+    },
+    "danger": {
+      "$type": "color",
+      "50": { "$value": "#fef2f2" },
+      "100": { "$value": "#fee2e2" },
+      "300": { "$value": "#fca5a5" },
+      "400": { "$value": "#f87171" },
+      "500": { "$value": "#ef4444" },
+      "600": { "$value": "#dc2626" },
+      "700": { "$value": "#b91c1c" },
+      "800": { "$value": "#991b1b" },
+      "950": { "$value": "#2a0a0a" }
+    },
+    "success": {
+      "$type": "color",
+      "50": { "$value": "#f0fdf4" },
+      "400": { "$value": "#4ade80" },
+      "600": { "$value": "#16a34a" },
+      "700": { "$value": "#15803d" },
+      "950": { "$value": "#052e16" }
+    }
+  }
+}
