@@ -9,9 +9,15 @@
 
 import { execSync } from 'node:child_process';
 
-const GENERATED = ['src/tokens/_generated.scss', 'tokens/tokens.css'];
+const GENERATED = [
+  'src/tokens/_generated.scss',
+  'tokens/tokens.css',
+  'tokens/figma/light.json',
+  'tokens/figma/dark.json',
+];
 
 execSync('node scripts/build-tokens.mjs', { stdio: 'inherit' });
+execSync('node scripts/build-figma.mjs', { stdio: 'inherit' });
 
 try {
   execSync(`git diff --exit-code -- ${GENERATED.join(' ')}`, { stdio: 'pipe' });
