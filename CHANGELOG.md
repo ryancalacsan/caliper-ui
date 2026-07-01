@@ -1,5 +1,14 @@
 # @ryancalacsan/caliper-ui
 
+## 0.11.1
+
+### Patch Changes
+
+- b027851: Rewrite the README as product documentation: lead with what the library is and
+  why to use it (features, install, usage, component list), reframe the styling and
+  accessibility notes for adopters, and move the contributor material (development
+  setup, testing, project structure, scripts) into a new CONTRIBUTING.md.
+
 ## 0.11.0
 
 ### Minor Changes
