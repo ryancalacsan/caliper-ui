@@ -14,6 +14,7 @@ const GENERATED = [
   'tokens/tokens.css',
   'tokens/figma/light.json',
   'tokens/figma/dark.json',
+  'tokens/figma/tokens-studio.json',
 ];
 
 execSync('node scripts/build-tokens.mjs', { stdio: 'inherit' });

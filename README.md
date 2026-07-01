@@ -131,8 +131,12 @@ identical to the prior hand-authored output, so consumers see no change.
 of a single `Caliper` variable collection:
 
 - `npm run build:figma` writes `tokens/figma/light.json` and `dark.json` (one
-  resolved DTCG file per mode) for Figma's native variable import or for
-  [Tokens Studio](https://tokens.studio/).
+  resolved DTCG file per mode) for Figma's native variable import, plus
+  `tokens/figma/tokens-studio.json` - a single file with both modes as token
+  sets and a `$themes` block wiring a `Caliper` collection - to load in
+  [Tokens Studio](https://tokens.studio/). (Exporting themes as Figma _modes_
+  from Tokens Studio needs its Pro tier, and multiple modes in one collection
+  needs a paid Figma plan; on the free tiers, export a single set as one mode.)
 - `npm run figma:push` imports/updates the variables directly through the Figma
   Variables REST API - the plugin-free path. It is gated on two environment
   variables and never hard-codes a secret:

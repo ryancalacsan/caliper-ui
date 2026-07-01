@@ -54,9 +54,36 @@ function toDtcg(tokens) {
 const outDir = resolve(ROOT, 'tokens/figma');
 mkdirSync(outDir, { recursive: true });
 
+const trees = {};
 for (const mode of ['light', 'dark']) {
   const tokens = await resolveTokens(SOURCES[mode]);
+  trees[mode] = toDtcg(tokens);
   const dest = resolve(outDir, `${mode}.json`);
-  writeFileSync(dest, JSON.stringify(toDtcg(tokens), null, 2) + '\n');
+  writeFileSync(dest, JSON.stringify(trees[mode], null, 2) + '\n');
   console.log(`Wrote ${dest}`);
 }
+
+// Combined Tokens Studio file: the two modes as token sets, plus a $themes block
+// that maps them to a Light/Dark "Caliper" collection on export to Figma.
+const studio = {
+  light: trees.light,
+  dark: trees.dark,
+  $themes: [
+    {
+      id: 'caliper-light',
+      name: 'Light',
+      group: 'Caliper',
+      selectedTokenSets: { light: 'enabled' },
+    },
+    {
+      id: 'caliper-dark',
+      name: 'Dark',
+      group: 'Caliper',
+      selectedTokenSets: { dark: 'enabled' },
+    },
+  ],
+  $metadata: { tokenSetOrder: ['light', 'dark'] },
+};
+const studioDest = resolve(outDir, 'tokens-studio.json');
+writeFileSync(studioDest, JSON.stringify(studio, null, 2) + '\n');
+console.log(`Wrote ${studioDest}`);
