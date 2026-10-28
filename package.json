@@ -71,7 +71,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "changeset": "changeset",
-    "release": "npm run build:lib && changeset publish"
+    "release": "npm run build:lib && changeset publish",
+    "deps:held": "node scripts/check-held-upgrades.mjs"
   },
   "peerDependencies": {
     "react": ">=18",

@@ -60,6 +60,18 @@ color-role pairing meets WCAG 2.2 AA.
 request: lint, format, types, the token drift check, and the build in one job;
 the interaction tests and visual regression in the pinned Playwright container.
 
+## Dependency updates
+
+Dependabot (`.github/dependabot.yml`) opens grouped update PRs monthly. A few
+packages are on its ignore list because they can't be bumped automatically:
+Playwright moves with the CI image and the visual baselines, and some majors
+need hand migration. The reason is the comment above each ignore entry.
+
+So an ignore never means a missed upgrade, the **Held-back upgrades** workflow
+runs monthly and keeps an issue of that name open while any ignored package has
+a newer version out. Run `npm run deps:held` to see the same report locally.
+When a reason stops applying, upgrade by hand and remove the ignore.
+
 ## Releases and deployment
 
 Releases go out via [Changesets](https://github.com/changesets/changesets) and
@@ -128,4 +140,5 @@ tests/
 | `npm run lint`               | oxlint (TS) and Stylelint (SCSS)           |
 | `npm run format`             | Prettier write                             |
 | `npm run typecheck`          | TypeScript, no emit                        |
+| `npm run deps:held`          | List upgrades Dependabot is holding back   |
 | `npm run changeset`          | Record a changeset for the next release    |
