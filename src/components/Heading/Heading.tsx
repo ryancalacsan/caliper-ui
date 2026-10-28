@@ -3,15 +3,7 @@ import './Heading.scss';
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
 export type HeadingSize =
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | '2xl'
-  | '3xl'
-  | '4xl'
-  | '5xl'
-  | '6xl'
-  | 'display';
+  'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl' | '6xl' | 'display';
 export type HeadingWeight = 'semibold' | 'bold' | 'black';
 
 const DEFAULT_SIZE: Record<HeadingLevel, HeadingSize> = {

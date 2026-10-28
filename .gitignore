@@ -37,3 +37,6 @@ storybook-static
 
 # Library build output
 /lib
+
+# Personal / local-only notes (never published)
+.private/

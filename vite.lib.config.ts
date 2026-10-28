@@ -46,7 +46,7 @@ export default defineConfig({
     cssCodeSplit: false,
     sourcemap: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(import.meta.dirname, 'src/index.ts'),
       formats: ['es'],
     },
     rollupOptions: {

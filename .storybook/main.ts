@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -6,7 +7,18 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-vitest',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
+    // GFM tables in MDX docs (e.g. the Design tokens page) need remark-gfm;
+    // addon-docs does not enable it by default, so pipe tables render as raw text.
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
     '@storybook/addon-mcp',
   ],
   framework: '@storybook/react-vite',
