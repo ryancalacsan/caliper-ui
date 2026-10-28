@@ -3,16 +3,7 @@
 
 /** A step on the spacing scale. Maps to var(--space-{token}). */
 export type SpaceToken =
-  | '0'
-  | '2xs'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'xl'
-  | '2xl'
-  | '3xl'
-  | '4xl';
+  '0' | '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 /** Cross-axis alignment (align-items). */
 export type Align = 'start' | 'center' | 'end' | 'stretch' | 'baseline';
