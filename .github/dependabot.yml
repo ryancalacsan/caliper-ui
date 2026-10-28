@@ -6,6 +6,13 @@ updates:
       interval: monthly
     open-pull-requests-limit: 5
     groups:
+      # Packages that share a version and peer-depend on each other must move
+      # together, majors included, or npm ci fails with ERESOLVE. Dependabot
+      # assigns each update to the first matching group, so these come first.
+      vitest:
+        patterns: ['vitest', '@vitest/*']
+      storybook:
+        patterns: ['storybook', '@storybook/*']
       # One PR a month for routine minor/patch bumps; majors still come one at a time.
       dev-dependencies:
         dependency-type: development
@@ -16,6 +23,9 @@ updates:
       # baselines, so it is bumped by hand.
       - dependency-name: playwright
       - dependency-name: '@playwright/test'
+      # Node type majors are bumped by hand along with the Node version CI runs.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions
     directory: /
