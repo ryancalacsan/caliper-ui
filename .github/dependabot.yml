@@ -17,6 +17,10 @@ updates:
       dev-dependencies:
         dependency-type: development
         update-types: [minor, patch]
+    # Every ignore here is reported monthly by .github/workflows/held-upgrades.yml
+    # (scripts/check-held-upgrades.mjs), which keeps a "Held-back upgrades" issue
+    # open while a newer version is waiting. The comment above each entry is the
+    # reason shown in that issue, so keep it current.
     ignore:
       # Playwright must move in lockstep with the CI container image
       # (mcr.microsoft.com/playwright:vX-noble) and the committed visual
@@ -29,6 +33,12 @@ updates:
       # TypeScript 7 drops the JS compiler API that vite-plugin-dts uses to emit
       # the library's .d.ts files. Remove once the plugin supports it.
       - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+      # Dependabot's vitest group bumps vitest without its @vitest/* plugins,
+      # which fails npm ci (#46, #49). Vitest majors are upgraded by hand.
+      - dependency-name: vitest
+        update-types: ['version-update:semver-major']
+      - dependency-name: '@vitest/*'
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: github-actions

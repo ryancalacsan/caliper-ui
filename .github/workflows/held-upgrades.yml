@@ -1,0 +1,46 @@
+name: Held-back upgrades
+
+# Dependabot ignores some packages on purpose (see the ignore list in
+# .github/dependabot.yml). This keeps one "Held-back upgrades" issue open while
+# any of them has a newer version waiting, so an ignore never silently turns
+# into a missed upgrade. The issue closes itself once nothing is waiting.
+on:
+  schedule:
+    # The 2nd of each month, after Dependabot's monthly run.
+    - cron: '0 15 2 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    name: Report held-back upgrades
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Reads package.json, package-lock.json and dependabot.yml only, so no
+      # npm ci is needed.
+      - id: check
+        run: node scripts/check-held-upgrades.mjs > report.md
+      - name: Open, update or close the tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          HELD: ${{ steps.check.outputs.held }}
+        run: |
+          title="Held-back upgrades"
+          issue=$(gh issue list --state open --search "in:title \"$title\"" \
+            --json number,title -q ".[] | select(.title == \"$title\") | .number" | head -1)
+          if [ "$HELD" = "true" ]; then
+            if [ -n "$issue" ]; then
+              gh issue edit "$issue" --body-file report.md
+            else
+              gh issue create --title "$title" --body-file report.md
+            fi
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "No held-back upgrades are waiting."
+          fi
